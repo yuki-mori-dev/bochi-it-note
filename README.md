@@ -4,6 +4,12 @@
 
 - 事業計画: `docs/business-plan.md`
 - 技術概要: `docs/technical.md`
+- アーキテクチャ: `docs/architecture.md`
+- デザイン/UX: `docs/design.md`
+- パフォーマンス/アクセシビリティ: `docs/performance-accessibility.md`
+- 運用ランブック: `docs/runbook.md`
+- セキュリティ/ポリシー: `docs/security.md`
+- Contributing: `docs/contributing.md`
 
 ## クイックスタート
 ```
