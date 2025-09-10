@@ -27,12 +27,24 @@ const description = '製品・比較を横断検索';
 			`;
 		}
 		render({products:[], comparisons:[]});
-		document.getElementById('q').addEventListener('input', (e)=>{
-			const q = String(e.target.value||'').toLowerCase().trim();
-			if(!q){ return render({products:[], comparisons:[]}); }
-			const pr = products.filter(p => p.name.toLowerCase().includes(q) || p.slug.includes(q));
-			const cr = comparisons.filter(c => (c.title.toLowerCase().includes(q) || c.slug.includes(q)));
+		function run(q){
+			const query = String(q||'').toLowerCase().trim();
+			if(!query){ return render({products:[], comparisons:[]}); }
+			const pr = products.filter(p => p.name.toLowerCase().includes(query) || p.slug.includes(query));
+			const cr = comparisons.filter(c => (c.title.toLowerCase().includes(query) || c.slug.includes(query)));
 			render({products:pr, comparisons:cr});
+		}
+		document.getElementById('q').addEventListener('input', (e)=>{
+			run(e.target.value);
+		});
+		document.addEventListener('DOMContentLoaded', () => {
+			const params = new URLSearchParams(location.search);
+			const q = params.get('q');
+			if(q){
+				const input = document.getElementById('q');
+				input.value = q;
+				run(q);
+			}
 		});
 	</script>
 </BaseLayout>

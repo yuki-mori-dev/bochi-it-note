@@ -20,15 +20,49 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 		<meta property="og:type" content="website" />
 		<link rel="canonical" href={`https://bochi-it-note.com${Astro.url.pathname}`} />
 		<meta property="og:url" content={`https://bochi-it-note.com${Astro.url.pathname}`} />
+		<script type="application/ld+json" is:inline>{JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"name": "Bochi IT Note",
+			"url": "https://bochi-it-note.com"
+		})}</script>
+		<script type="application/ld+json" is:inline>{JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			"name": "Bochi IT Note",
+			"url": "https://bochi-it-note.com",
+			"potentialAction": {
+				"@type": "SearchAction",
+				"target": "https://bochi-it-note.com/search?q={search_term_string}",
+				"query-input": "required name=search_term_string"
+			}
+		})}</script>
 		{import.meta.env.PUBLIC_GSC_VERIFICATION && (
 			<meta name="google-site-verification" content={import.meta.env.PUBLIC_GSC_VERIFICATION} />
 		)}
 		<script is:inline>
 			(function(){
-				function getConsent(){ try{ return localStorage.getItem('cookie:consent')==='yes'; }catch(e){ return false; } }
-				function setConsent(){ try{ localStorage.setItem('cookie:consent','yes'); location.reload(); }catch(e){} }
-				window.__consentGranted = getConsent();
-				window.__grantConsent = setConsent;
+				function status(){ try{ return localStorage.getItem('cookie:consent') || 'unset'; }catch(e){ return 'unset'; } }
+				function accept(){ try{ localStorage.setItem('cookie:consent','yes'); location.reload(); }catch(e){} }
+				function decline(){ try{ localStorage.setItem('cookie:consent','no'); location.reload(); }catch(e){} }
+				function openBanner(){
+					try{
+						if(document.getElementById('cookie-banner')) return;
+						var b=document.createElement('div');
+						b.id='cookie-banner';
+						b.innerHTML='\n<div style="position:fixed;inset:auto 0 0 0;background:#111;color:#fff;padding:12px 16px;display:flex;gap:12px;align-items:center;justify-content:center;z-index:9999;font-size:12px;flex-wrap:wrap">本サイトは計測/アフィリエイトのためCookie等を使用します。<div style="display:flex;gap:8px;align-items:center"><button id="cc-accept" style="background:#fff;color:#111;padding:6px 10px;border-radius:4px;">同意</button><button id="cc-decline" style="background:transparent;color:#fff;padding:6px 10px;border:1px solid #fff;border-radius:4px;">拒否</button></div></div>';
+						document.body.appendChild(b);
+						document.getElementById('cc-accept').addEventListener('click', accept);
+						document.getElementById('cc-decline').addEventListener('click', decline);
+					}catch(e){}
+				}
+				window.__consentGranted = (status()==='yes');
+				window.__grantConsent = accept;
+				window.__revokeConsent = decline;
+				window.__openConsent = function(){
+					try{ localStorage.removeItem('cookie:consent'); }catch(e){}
+					if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', openBanner); else openBanner();
+				};
 			})();
 		</script>
 		{import.meta.env.PUBLIC_GA_ID && (
@@ -91,13 +125,7 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 							page: location.pathname
 						});
 					}, {capture:true});
-					// Cookie banner
-					if(!window.__consentGranted){
-						var b=document.createElement('div');
-						b.innerHTML='<div style="position:fixed;inset:auto 0 0 0;background:#111;color:#fff;padding:12px 16px;display:flex;gap:12px;align-items:center;justify-content:center;z-index:9999;font-size:12px;">本サイトは計測/アフィリエイトのためCookie等を使用します。<button id="cc-accept" style="background:#fff;color:#111;padding:6px 10px;border-radius:4px;">同意して続ける</button></div>';
-						document.body.appendChild(b);
-						document.getElementById('cc-accept').addEventListener('click', function(){ window.__grantConsent(); });
-					}
+					if(!window.__consentGranted){ if(window.__openConsent) window.__openConsent(); }
 				});
 			})();
 		</script>
