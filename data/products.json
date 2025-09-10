@@ -146,6 +146,209 @@
       }
     ],
     "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "okta",
+    "name": "Okta",
+    "vendor": "Okta Inc.",
+    "category": ["Identity", "SSO"],
+    "website": "https://www.okta.com",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Okta Security & Compliance", "url": "https://trust.okta.com/compliance/", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "auth0",
+    "name": "Auth0",
+    "vendor": "Okta, Inc.",
+    "category": ["Identity", "SSO"],
+    "website": "https://auth0.com",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Auth0 Compliance", "url": "https://auth0.com/security-compliance", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "slack",
+    "name": "Slack",
+    "vendor": "Salesforce, Inc.",
+    "category": ["Communication", "Collaboration"],
+    "website": "https://slack.com",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Slack Security", "url": "https://slack.com/security", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "teams",
+    "name": "Microsoft Teams",
+    "vendor": "Microsoft",
+    "category": ["Communication", "Collaboration"],
+    "website": "https://www.microsoft.com/microsoft-teams",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Microsoft 365 Compliance", "url": "https://www.microsoft.com/trust-center/compliance", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "bitbucket",
+    "name": "Bitbucket",
+    "vendor": "Atlassian",
+    "category": ["DevOps", "Source Control"],
+    "website": "https://bitbucket.org",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Atlassian Trust", "url": "https://www.atlassian.com/trust", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "notion",
+    "name": "Notion",
+    "vendor": "Notion Labs, Inc.",
+    "category": ["Productivity", "Docs"],
+    "website": "https://www.notion.so",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": false,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "basic"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Notion Security & Compliance", "url": "https://www.notion.so/help/security-and-privacy", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "coda",
+    "name": "Coda",
+    "vendor": "Coda, Inc.",
+    "category": ["Productivity", "Docs"],
+    "website": "https://coda.io",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": false,
+      "mfa": true,
+      "auditLog": "basic",
+      "retentionDays": null,
+      "dataResidency": "us",
+      "rolesGranularity": "basic"
+    },
+    "compliance": {
+      "iso27001": false,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Coda Security", "url": "https://coda.io/security", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
   }
 ]
 

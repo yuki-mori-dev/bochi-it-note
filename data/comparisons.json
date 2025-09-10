@@ -20,5 +20,49 @@
       "Hosting"
     ],
     "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "okta-vs-auth0",
+    "title": "Okta vs Auth0",
+    "productA": "okta",
+    "productB": "auth0",
+    "summary": "IDaaSの代表2製品をSSO/SCIM/監査ログ/データ所在で比較。",
+    "tags": [
+      "Identity"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "slack-vs-teams",
+    "title": "Slack vs Microsoft Teams",
+    "productA": "slack",
+    "productB": "teams",
+    "summary": "ビジネスチャット2大のガバナンス/要件適合を比較。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "notion-vs-coda",
+    "title": "Notion vs Coda",
+    "productA": "notion",
+    "productB": "coda",
+    "summary": "ドキュメント/データベース型2製品の要件面の差分。",
+    "tags": [
+      "Productivity"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "github-vs-bitbucket",
+    "title": "GitHub vs Bitbucket",
+    "productA": "github",
+    "productB": "bitbucket",
+    "summary": "ソース管理の代表2製品を要件適合観点で比較。",
+    "tags": [
+      "DevOps"
+    ],
+    "last_updated": "2025-09-10"
   }
 ]

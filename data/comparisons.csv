@@ -1,5 +1,9 @@
 slug,title,productA,productB,summary,tags,last_updated
 github-vs-gitlab,GitHub vs GitLab,github,gitlab,DevOpsの二大ホスティングを要件適合観点で比較。,DevOps,
 vercel-vs-netlify,Vercel vs Netlify,vercel,netlify,モダンホスティング2社の運用・要件面の差分に注目。,Hosting,
+okta-vs-auth0,Okta vs Auth0,okta,auth0,IDaaSの代表2製品をSSO/SCIM/監査ログ/データ所在で比較。,Identity,
+slack-vs-teams,Slack vs Microsoft Teams,slack,teams,ビジネスチャット2大のガバナンス/要件適合を比較。,Communication,
+notion-vs-coda,Notion vs Coda,notion,coda,ドキュメント/データベース型2製品の要件面の差分。,Productivity,
+github-vs-bitbucket,GitHub vs Bitbucket,github,bitbucket,ソース管理の代表2製品を要件適合観点で比較。,DevOps,
 
 
