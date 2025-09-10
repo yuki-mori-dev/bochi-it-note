@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import products from "../../../data/products.json";
+import freshness from "../../../data/freshness.json";
 import affiliates from "../../../data/affiliates.json";
 export function getStaticPaths() {
   return products.map(p => ({ params: { slug: p.slug } }));
@@ -13,13 +14,24 @@ if (!product) {
 const title = `${product.name}｜要件適合と機能`;
 const description = `${product.name}のSSO/SCIM、IP制限、監査ログ、データ所在、保持期間などの要件適合状況。`;
 const affiliate = affiliates.find(a => a.slug === product.slug) ?? affiliates.find(a => a.slug === 'default');
+const f = freshness[product.slug];
 ---
 
 <BaseLayout {title} {description}>
+	<script type="application/ld+json" is:inline>{JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "SoftwareApplication",
+		"name": product.name,
+		"url": `https://bochi-it-note.com/products/${product.slug}`,
+		"applicationCategory": product.category?.join(', '),
+		"operatingSystem": "Any",
+		"offers": { "@type": "Offer", "price": product.pricing?.enterprise ? "Contact" : "0", "priceCurrency": "JPY" }
+	})}</script>
 	<article class="prose prose-zinc max-w-none">
 		<h1>{product.name}</h1>
 		<p><a href={product.website} target="_blank" rel="noopener">公式サイト</a></p>
 		{affiliate && <p class="mt-2"><a class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={affiliate.url} target="_blank" rel="nofollow noopener">公式サイト（紹介）へ</a></p>}
+		{f?.needsReview && <p class="mt-2 inline-flex items-center rounded bg-yellow-100 px-2 py-1 text-xs text-yellow-800">要確認: 出典の変更が検知されました</p>}
 		<h2>要件適合（抜粋）</h2>
 		<ul>
 			<li>SSO: {product.features.sso ? '対応' : '未対応'}</li>

@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import products from "../../../data/products.json";
 import comparisons from "../../../data/comparisons.json";
+import freshness from "../../../data/freshness.json";
 export function getStaticPaths() {
   return comparisons.map(c => ({ params: { slug: c.slug } }));
 }
@@ -17,12 +18,22 @@ if (!a || !b) {
 }
 const title = `${a.name} vs ${b.name}｜要件適合比較`;
 const description = `${a.name}と${b.name}をSSO/SCIM、IP制限、監査ログ、データ所在などで比較。`;
+const fr = (freshness[a.slug]?.needsReview || freshness[b.slug]?.needsReview);
 ---
 
 <BaseLayout {title} {description}>
+	<script type="application/ld+json" is:inline>{JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "Article",
+		"headline": `${a.name} vs ${b.name}`,
+		"url": `https://bochi-it-note.com/compare/${page.slug}`,
+		"about": [a.name, b.name],
+		"dateModified": page.last_updated
+	})}</script>
 	<article class="prose prose-zinc max-w-none">
 		<h1>{a.name} vs {b.name}</h1>
 		<p>{page.summary}</p>
+		{fr && <p class="mt-2 inline-flex items-center rounded bg-yellow-100 px-2 py-1 text-xs text-yellow-800">要確認: 出典の変更が検知されました</p>}
 		<table>
 			<thead>
 				<tr>

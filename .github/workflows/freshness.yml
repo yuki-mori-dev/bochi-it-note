@@ -1,0 +1,29 @@
+name: Freshness Check
+
+on:
+  schedule:
+    - cron: '0 18 * * *' # 03:00 JST
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci --no-audit --no-fund
+      - run: npm run check:freshness
+      - name: Commit freshness.json
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/freshness.json
+            git commit -m "chore: nightly freshness check"
+            git push
+          fi
+
+

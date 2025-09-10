@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check:freshness": "node ./scripts/check-freshness.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.5.1",
