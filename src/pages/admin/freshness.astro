@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import products from "../../../data/products.json";
+import freshness from "../../../data/freshness.json";
+const title = 'Freshnessレビュー｜管理用';
+const description = '出典の変更検知状況を一覧';
+---
+
+<BaseLayout {title} {description} noindex={true}>
+	<h1 class="text-2xl font-bold">Freshnessレビュー（管理）</h1>
+	<p class="mt-2 text-sm text-gray-600">出典の変更が検知された製品を表示します。</p>
+	<ul class="mt-4 grid gap-3">
+		{products.filter(p => freshness[p.slug]?.needsReview).map(p => (
+			<li class="rounded border p-4">
+				<a class="font-semibold underline" href={`/products/${p.slug}`}>{p.name}</a>
+				<p class="mt-1 text-xs text-gray-600">最終確認日: {p.last_verified}</p>
+				<ul class="mt-2 list-disc pl-5 text-xs text-gray-700">
+					{(freshness[p.slug]?.details||[]).map(d => <li>{d.url} / {d.lastModified||'n/a'}</li>)}
+				</ul>
+			</li>
+		))}
+	</ul>
+</BaseLayout>
+
+
