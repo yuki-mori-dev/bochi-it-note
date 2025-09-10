@@ -9,7 +9,7 @@ const description = '要件適合観点のSaaS比較一覧。SSO/SCIM、IP制限
 <BaseLayout {title} {description}>
 	<h1 class="text-2xl font-bold">比較一覧</h1>
 	<ul class="mt-6 grid gap-4 sm:grid-cols-2">
-		{comparisons.map(c => {
+		{[...comparisons].sort((a,b)=> a.title.localeCompare(b.title,'ja')).map(c => {
 			const a = products.find(p => p.slug === c.productA);
 			const b = products.find(p => p.slug === c.productB);
 			return (
