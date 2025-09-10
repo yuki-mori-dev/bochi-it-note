@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import products from "../../../data/products.json";
+import affiliates from "../../../data/affiliates.json";
 import comparisons from "../../../data/comparisons.json";
 import freshness from "../../../data/freshness.json";
 import Breadcrumb from "../../components/Breadcrumb.astro";
@@ -21,6 +22,11 @@ if (!a || !b) {
 const title = `${a.name} vs ${b.name}｜要件適合比較`;
 const description = `${a.name}と${b.name}をSSO/SCIM、IP制限、監査ログ、データ所在などで比較。`;
 const fr = (freshness[a.slug]?.needsReview || freshness[b.slug]?.needsReview);
+const useSkim = Boolean(import.meta.env.PUBLIC_SKIMLINKS_ID);
+const affA = affiliates.find(x=>x.slug===a.slug) ?? affiliates.find(x=>x.slug==='default');
+const affB = affiliates.find(x=>x.slug===b.slug) ?? affiliates.find(x=>x.slug==='default');
+const hrefA = useSkim ? a.website : (affA?.url || a.website);
+const hrefB = useSkim ? b.website : (affB?.url || b.website);
 ---
 
 <BaseLayout {title} {description}>
@@ -53,6 +59,10 @@ const fr = (freshness[a.slug]?.needsReview || freshness[b.slug]?.needsReview);
 				<tr><td>データ所在</td><td>{a.features.dataResidency}</td><td>{b.features.dataResidency}</td></tr>
 			</tbody>
 		</table>
+		<div class="mt-4 flex flex-wrap gap-3">
+			<a data-track="out_affiliate" data-type="product" data-slug={a.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={hrefA} target="_blank" rel="nofollow noopener sponsored">{a.name} 公式（紹介）</a>
+			<a data-track="out_affiliate" data-type="product" data-slug={b.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={hrefB} target="_blank" rel="nofollow noopener sponsored">{b.name} 公式（紹介）</a>
+		</div>
 		<h3>出典</h3>
 		<ul>
 			{a.sources.map(s => <li><a href={s.url} target="_blank" rel="noopener">{a.name}: {s.title}</a></li>)}
