@@ -29,7 +29,7 @@ const f = freshness[product.slug];
 		"@type": "SoftwareApplication",
 		"name": product.name,
 		"url": `https://bochi-it-note.com/products/${product.slug}`,
-		"applicationCategory": product.category?.join(', '),
+		"applicationCategory": product.category?.[0] || "Software",
 		"operatingSystem": "Any",
 		"offers": { "@type": "Offer", "price": product.pricing?.enterprise ? "Contact" : "0", "priceCurrency": "JPY" }
 	})}</script>
@@ -46,7 +46,7 @@ const f = freshness[product.slug];
 			<li>IP制限: {product.features.ipAllowlist ? '対応' : '未対応'}</li>
 			<li>監査ログ: {product.features.auditLog}</li>
 			<li>データ所在: {product.features.dataResidency}</li>
-			<li>保持期間: {product.features.retentionDays !== null ? `${product.features.retentionDays}日` : '不明/ベンダ依存'}</li>
+			<li>保持期間: {product.features.retentionDays !== null ? `${product.features.retentionDays}日` : '不明/プラン依存'}</li>
 			<li>権限粒度: {product.features.rolesGranularity}</li>
 		</ul>
 		<h3>出典</h3>
