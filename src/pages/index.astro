@@ -7,9 +7,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		<div class="mx-auto max-w-3xl text-center">
 			<h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">要件から選ぶ、SaaS比較</h1>
 			<p class="mt-4 text-gray-600">日本の中小企業で求められるガバナンス要件に合わせて、適合するSaaSを素早く特定。稟議・RFP・セキュリティチェックのテンプレも提供。</p>
-			<div class="mt-6 flex items-center justify-center gap-3">
-				<a href="/tools/requirements" class="rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-black">要件で検索する</a>
-				<a href="/compare/" class="rounded-md border border-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-50">比較をみる</a>
+			<div class="mt-6 flex items-center justify-center gap-3" id="cta-group">
+				<a data-track="cta_requirements" href="/tools/requirements" class="rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-black">要件で検索する</a>
+				<a data-track="cta_compare" href="/compare/" class="rounded-md border border-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-50">比較をみる</a>
 			</div>
 		</div>
 	</section>
@@ -28,3 +28,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	</section>
 
 </BaseLayout>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+	try{
+		var v = window.__variant || 'A';
+		if(v==='B'){
+			var g=document.getElementById('cta-group');
+			if(g){
+				var a=[...g.querySelectorAll('a')];
+				if(a.length===2){ g.innerHTML=''; g.append(a[1],a[0]); }
+			}
+		}
+	}catch(e){}
+});
+</script>

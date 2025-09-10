@@ -26,6 +26,42 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 			// function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
 			// gtag('config', 'G-XXXXXXXXXX');
 		</script>
+		<script is:inline>
+			(function(){
+				function assignVariant(){
+					try{
+						var key='ab:home-cta';
+						var v=localStorage.getItem(key);
+						if(!v){ v=Math.random()<0.5?'A':'B'; localStorage.setItem(key,v); }
+						window.__variant=v;
+						document.documentElement.setAttribute('data-variant', v);
+					}catch(e){}
+				}
+				function sendEvent(detail){
+					try{
+						if(window.gtag){ window.gtag('event','click',{event_category:'interaction',...detail}); }
+						var k='stats:click:'+(detail.name||'unknown');
+						var c=Number(localStorage.getItem(k)||'0')+1; localStorage.setItem(k,String(c));
+					}catch(e){}
+				}
+				document.addEventListener('DOMContentLoaded',function(){
+					assignVariant();
+					document.addEventListener('click',function(e){
+						var el=e.target && e.target.closest && e.target.closest('[data-track]');
+						if(!el) return;
+						sendEvent({
+							name: el.getAttribute('data-track'),
+							variant: window.__variant || 'A',
+							href: el.getAttribute('href')||null,
+							id: el.getAttribute('data-id')||null,
+							slug: el.getAttribute('data-slug')||null,
+							type: el.getAttribute('data-type')||null,
+							page: location.pathname
+						});
+					}, {capture:true});
+				});
+			})();
+		</script>
 	</head>
 	<body class="min-h-screen bg-white text-gray-900">
 		<Header />
