@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const title = 'お問い合わせ｜Bochi IT Note';
+const description = 'お問い合わせフォーム';
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">お問い合わせ</h1>
+	<p class="mt-2 text-sm text-gray-700">ご連絡は以下のフォームまたはSNS等からお願いします。</p>
+	<form class="mt-4 grid gap-3" action="https://formspree.io/f/your-id" method="POST">
+		<label class="grid gap-1 text-sm">
+			<span>メールアドレス</span>
+			<input class="rounded border px-3 py-2" type="email" name="email" required />
+		</label>
+		<label class="grid gap-1 text-sm">
+			<span>内容</span>
+			<textarea class="rounded border px-3 py-2" name="message" rows="5" required></textarea>
+		</label>
+		<button class="rounded bg-gray-900 px-4 py-2 text-white hover:bg-black" type="submit">送信</button>
+	</form>
+</BaseLayout>
+
+

@@ -1,5 +1,6 @@
 ---
 const year = new Date().getFullYear();
+import Newsletter from "./Newsletter.astro";
 ---
 
 <footer class="mt-12 border-t border-gray-100 bg-gray-50/60">
@@ -12,6 +13,9 @@ const year = new Date().getFullYear();
 				<a href="/policy/privacy" class="hover:text-gray-800">プライバシー</a>
 				<a href="/affiliate-disclosure" class="hover:text-gray-800">アフィリエイト表記</a>
 			</nav>
+		</div>
+		<div class="mt-6">
+			<Newsletter />
 		</div>
 		<p class="mt-4 max-w-3xl text-xs leading-relaxed text-gray-500">本サイトの情報は掲載時点の内容であり、正確性・最新性を保証するものではありません。必ず公式ドキュメント・契約書をご確認ください。</p>
 	</div>
