@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import products from "../../data/products.json";
+import comparisons from "../../data/comparisons.json";
+const title = '検索｜Bochi IT Note';
+const description = '製品・比較を横断検索';
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">検索</h1>
+	<input id="q" class="mt-4 w-full rounded border px-3 py-2" placeholder="製品名・比較（例: GitHub, Slack vs Teams）" />
+	<div id="res" class="mt-4"></div>
+
+	<script>
+		const products = JSON.parse(`{JSON.stringify(products)}`);
+		const comparisons = JSON.parse(`{JSON.stringify(comparisons)}`);
+		function render(list){
+			document.getElementById('res').innerHTML = `
+				<h2 class="mt-4 text-lg font-semibold">製品</h2>
+				<ul class="mt-2 grid gap-2">
+					${list.products.map(p=>`<li><a class="underline" href="/products/${p.slug}">${p.name}</a></li>`).join('')}
+				</ul>
+				<h2 class="mt-6 text-lg font-semibold">比較</h2>
+				<ul class="mt-2 grid gap-2">
+					${list.comparisons.map(c=>`<li><a class="underline" href="/compare/${c.slug}">${c.title}</a></li>`).join('')}
+				</ul>
+			`;
+		}
+		render({products:[], comparisons:[]});
+		document.getElementById('q').addEventListener('input', (e)=>{
+			const q = String(e.target.value||'').toLowerCase().trim();
+			if(!q){ return render({products:[], comparisons:[]}); }
+			const pr = products.filter(p => p.name.toLowerCase().includes(q) || p.slug.includes(q));
+			const cr = comparisons.filter(c => (c.title.toLowerCase().includes(q) || c.slug.includes(q)));
+			render({products:pr, comparisons:cr});
+		});
+	</script>
+</BaseLayout>
+
+

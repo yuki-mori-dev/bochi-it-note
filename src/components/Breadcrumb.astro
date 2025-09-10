@@ -1,0 +1,29 @@
+---
+// Props: items: Array<{ name: string; href?: string }>
+const { items = [] } = Astro.props;
+const base = 'https://bochi-it-note.com';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((it, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.name,
+    item: it.href ? `${base}${it.href}` : undefined
+  }))
+};
+---
+
+<nav aria-label="Breadcrumb" class="text-xs text-gray-600">
+	<ol class="flex flex-wrap items-center gap-1">
+		{items.map((it, idx) => (
+			<li>
+				{idx > 0 && <span class="mx-1 text-gray-400">/</span>}
+				{it.href ? <a href={it.href} class="hover:underline">{it.name}</a> : <span>{it.name}</span>}
+			</li>
+		))}
+	</ol>
+</nav>
+<script type="application/ld+json" is:inline>{JSON.stringify(jsonLd)}</script>
+
+

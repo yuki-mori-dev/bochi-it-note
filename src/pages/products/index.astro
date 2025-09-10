@@ -7,14 +7,27 @@ const description = '要件適合情報つきのSaaS製品一覧。SSO/SCIM、IP
 
 <BaseLayout {title} {description}>
 	<h1 class="text-2xl font-bold">製品一覧</h1>
-	<ul class="mt-6 grid gap-4 sm:grid-cols-2">
-		{products.map(p => (
-			<li class="rounded-md border p-4">
-				<a href={`/products/${p.slug}`} class="font-semibold text-gray-900 hover:underline">{p.name}</a>
-				<p class="mt-1 text-sm text-gray-600">SSO: {p.features.sso ? '対応' : '未対応'} / SCIM: {p.features.scim ? '対応' : '未対応'} / IP制限: {p.features.ipAllowlist ? '対応' : '未対応'}</p>
-			</li>
-		))}
-	</ul>
+	<input id="q" class="mt-4 w-full rounded border px-3 py-2" placeholder="製品名で絞り込み" />
+	<ul id="list" class="mt-4 grid gap-4 sm:grid-cols-2"></ul>
+
+	<script>
+		const products = JSON.parse(`{JSON.stringify(products)}`);
+		const list = document.getElementById('list');
+		function render(items){
+			list.innerHTML = items.map(p => `
+				<li class="rounded-md border p-4">
+					<a href="/products/${p.slug}" class="font-semibold text-gray-900 hover:underline">${p.name}</a>
+					<p class="mt-1 text-sm text-gray-600">SSO: ${p.features.sso ? '対応' : '未対応'} / SCIM: ${p.features.scim ? '対応' : '未対応'} / IP制限: ${p.features.ipAllowlist ? '対応' : '未対応'}</p>
+				</li>
+			`).join('');
+		}
+		render(products);
+		document.getElementById('q').addEventListener('input', (e)=>{
+			const q = String(e.target.value||'').toLowerCase().trim();
+			if(!q) return render(products);
+			render(products.filter(p => p.name.toLowerCase().includes(q) || p.slug.includes(q)));
+		});
+	</script>
 </BaseLayout>
 
 

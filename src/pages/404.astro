@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const title = 'ページが見つかりません｜Bochi IT Note';
+const description = 'お探しのページは移動したか、削除された可能性があります。';
+---
+
+<BaseLayout {title} {description} noindex={true}>
+	<h1 class="text-2xl font-bold">404 Not Found</h1>
+	<p class="mt-2 text-sm text-gray-600">お探しのページは見つかりませんでした。</p>
+	<ul class="mt-4 list-disc pl-5 text-sm">
+		<li><a class="underline" href="/">トップへ戻る</a></li>
+		<li><a class="underline" href="/search">サイト内検索</a></li>
+		<li><a class="underline" href="/products/">製品一覧</a></li>
+		<li><a class="underline" href="/compare/">比較一覧</a></li>
+	</ul>
+</BaseLayout>
+
+

@@ -30,6 +30,9 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 				</script>
 			</>
 		)}
+		{import.meta.env.PUBLIC_GSC_VERIFICATION && (
+			<meta name="google-site-verification" content={import.meta.env.PUBLIC_GSC_VERIFICATION} />
+		)}
 		<script is:inline>
 			(function(){
 				function assignVariant(){

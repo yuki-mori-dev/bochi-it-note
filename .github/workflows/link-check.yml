@@ -1,0 +1,26 @@
+name: Link Check
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 18 * * 1' # Mon 03:00 JST
+  workflow_dispatch:
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose --no-progress --max-cache-age 1d
+            --accept 200,206,301,302,307,308,429
+            --exclude 'mailto:' --exclude '#'
+            .
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
