@@ -78,7 +78,7 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 					if(window.__consentGranted){
 						window.dataLayer = window.dataLayer || [];
 						function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
-						gtag('config', '{import.meta.env.PUBLIC_GA_ID}');
+						gtag('config', '{import.meta.env.PUBLIC_GA_ID}', { 'anonymize_ip': true });
 					}
 				</script>
 			</>
