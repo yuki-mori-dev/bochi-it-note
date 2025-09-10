@@ -7,6 +7,9 @@
 - アーキテクチャ: `docs/architecture.md`
 - デザイン/UX: `docs/design.md`
 - パフォーマンス/アクセシビリティ: `docs/performance-accessibility.md`
+- データ入力規約: `docs/data-guidelines.md`
+- SEO方針: `docs/seo-guidelines.md`
+- リリースチェックリスト: `docs/release-checklist.md`
 - 運用ランブック: `docs/runbook.md`
 - セキュリティ/ポリシー: `docs/security.md`
 - Contributing: `docs/contributing.md`
