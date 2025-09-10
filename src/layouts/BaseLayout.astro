@@ -20,12 +20,16 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 		<meta property="og:type" content="website" />
 		<link rel="canonical" href={`https://bochi-it-note.com${Astro.url.pathname}`} />
 		<meta property="og:url" content={`https://bochi-it-note.com${Astro.url.pathname}`} />
-		<!-- Analytics placeholders: replace IDs -->
-		<script is:inline>
-			// window.dataLayer = window.dataLayer || [];
-			// function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
-			// gtag('config', 'G-XXXXXXXXXX');
-		</script>
+		{import.meta.env.PUBLIC_GA_ID && (
+			<>
+				<script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}></script>
+				<script is:inline>
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
+					gtag('config', '{import.meta.env.PUBLIC_GA_ID}');
+				</script>
+			</>
+		)}
 		<script is:inline>
 			(function(){
 				function assignVariant(){
