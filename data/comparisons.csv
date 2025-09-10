@@ -22,5 +22,14 @@ jira-vs-confluence,Jira vs Confluence,jira,confluence,課題管理とナレッ�
 asana-vs-microsoft-365,Asana vs Microsoft 365,asana,microsoft-365,タスク管理（Planner含む）との比較（SSO/監査/保持等）。,Productivity,
 confluence-vs-microsoft-365,Confluence vs Microsoft 365,confluence,microsoft-365,社内Wiki/SharePoint観点での要件適合差分。,Docs|Productivity,
 teams-vs-google-workspace,Microsoft Teams vs Google Workspace,teams,google-workspace,チャット/会議基盤のSSO/監査/データ所在の違い。,Communication,
+github-vs-bitbucket,GitHub vs Bitbucket,github,bitbucket,ソース管理の代表2製品を要件適合観点で比較。,DevOps,
+vercel-vs-netlify,Vercel vs Netlify,vercel,netlify,モダンホスティング2社の運用・要件面の差分に注目。,Hosting,
+jira-vs-asana,Jira vs Asana,jira,asana,課題管理とタスク管理の権限粒度/監査差分。,Productivity|DevOps,
+notion-vs-confluence,Notion vs Confluence,notion,confluence,Wiki/Docs基盤のSSO/監査ログ/保持の比較。,Docs|Productivity,
+zoom-vs-teams,Zoom vs Microsoft Teams,zoom,teams,会議/通話のガバナンス・要件適合を比較。,Communication,
+zoom-vs-slack,Zoom vs Slack,zoom,slack,コミュニケーション基盤の連携/監査/保持差分。,Communication,
+google-workspace-vs-slack,Google Workspace vs Slack,google-workspace,slack,チャット/会議/Drive連携と要件差分。,Communication,
+google-workspace-vs-zoom,Google Workspace vs Zoom,google-workspace,zoom,会議機能とデータ所在/監査の違い。,Communication,
+microsoft-365-vs-google-workspace,Microsoft 365 vs Google Workspace,microsoft-365,google-workspace,オフィス基盤のガバナンス/データ所在/SSO/監査ログ比較。,Productivity|Communication,
 
 

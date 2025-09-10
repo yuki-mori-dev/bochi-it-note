@@ -257,5 +257,107 @@
       "Communication"
     ],
     "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "github-vs-bitbucket",
+    "title": "GitHub vs Bitbucket",
+    "productA": "github",
+    "productB": "bitbucket",
+    "summary": "ソース管理の代表2製品を要件適合観点で比較。",
+    "tags": [
+      "DevOps"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "vercel-vs-netlify",
+    "title": "Vercel vs Netlify",
+    "productA": "vercel",
+    "productB": "netlify",
+    "summary": "モダンホスティング2社の運用・要件面の差分に注目。",
+    "tags": [
+      "Hosting"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "jira-vs-asana",
+    "title": "Jira vs Asana",
+    "productA": "jira",
+    "productB": "asana",
+    "summary": "課題管理とタスク管理の権限粒度/監査差分。",
+    "tags": [
+      "Productivity",
+      "DevOps"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "notion-vs-confluence",
+    "title": "Notion vs Confluence",
+    "productA": "notion",
+    "productB": "confluence",
+    "summary": "Wiki/Docs基盤のSSO/監査ログ/保持の比較。",
+    "tags": [
+      "Docs",
+      "Productivity"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "zoom-vs-teams",
+    "title": "Zoom vs Microsoft Teams",
+    "productA": "zoom",
+    "productB": "teams",
+    "summary": "会議/通話のガバナンス・要件適合を比較。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "zoom-vs-slack",
+    "title": "Zoom vs Slack",
+    "productA": "zoom",
+    "productB": "slack",
+    "summary": "コミュニケーション基盤の連携/監査/保持差分。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "google-workspace-vs-slack",
+    "title": "Google Workspace vs Slack",
+    "productA": "google-workspace",
+    "productB": "slack",
+    "summary": "チャット/会議/Drive連携と要件差分。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "google-workspace-vs-zoom",
+    "title": "Google Workspace vs Zoom",
+    "productA": "google-workspace",
+    "productB": "zoom",
+    "summary": "会議機能とデータ所在/監査の違い。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "microsoft-365-vs-google-workspace",
+    "title": "Microsoft 365 vs Google Workspace",
+    "productA": "microsoft-365",
+    "productB": "google-workspace",
+    "summary": "オフィス基盤のガバナンス/データ所在/SSO/監査ログ比較。",
+    "tags": [
+      "Productivity",
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
   }
 ]
