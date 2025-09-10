@@ -1,4 +1,4 @@
-# Bochi IT Note ビジネスプラン（v1.0）
+# Bochi IT Note ビジネスプラン（v1.1）
 
 最終更新: 2025-09-10
 
@@ -31,7 +31,7 @@
   - デジタルテンプレ販売（Notion/Excel/PDF、¥980–¥3,980）。
 - 中期（3–9か月）
   - Micro SaaS（月¥980前後）: 要件評価票/比較表の自動生成・PDF化・保存/履歴・共同編集。
-  - スポンサー枠/記事（E-E-A-T確立後）。
+  - スポンサー枠/記事（E-E-A-T確立後、ジャンル限定で健全化）。
 - 広告は流入安定後に導入（RPM ¥300–¥1,200）。
 
 ## 7. KPI 目標レンジ
@@ -41,12 +41,12 @@
 
 ## 8. ロードマップ
 - 0–4週: データモデル確定、製品50件、比較150件、テンプレ4点、要件検索初版、ポリシー整備。
-- 5–8週: 製品100件、比較350–500件、変更検知雛形、アフィリ導線ABテスト。
+- 5–8週: 製品100件、比較350–500件、変更検知雛形、アフィリ導線ABテスト、スポンサー枠β。
 - 3か月: 製品150件、比較700件、PDF出力ベータ、スポンサー営業資料。
 
 ## 9. SEO / E-E-A-T / 情報設計
-- 構造化データ: Product/SoftwareApplication、Article、Breadcrumb。
-- 内部リンク: 要件→カテゴリ→製品→比較の有向グラフ化、パンくず、関連比較/製品。
+- 構造化データ: SoftwareApplication（製品）、Article（比較）、BreadcrumbList（パンくず）。
+- 内部リンク: 要件→カテゴリ→製品→比較→代替（Alternatives）/タグ。関連比較/製品の自動表示。
 - 重複回避: 比較は差分中心、canonical管理、クラスター化。
 - E-E-A-T: 著者/編集方針/免責/出典規約/改訂履歴を明示。
 
@@ -58,9 +58,23 @@
 
 ## 11. プロダクト構成（MVP→拡張）
 - 実装済みMVP（2025-09-10）
-  - ページ: トップ、製品（一覧/詳細）、比較（一覧/詳細＋getStaticPaths）、要件検索、カテゴリ（一覧/詳細）、ポリシー各種。
-  - データ: `products.json` / `comparisons.json` / `affiliates.json` / `freshness.json`。
-  - 自動化: 変更検知スクリプト（HEAD/Last-Modified）＋夜間CI、GitHub Pages CI、サイトマップ/robots、構造化データ、内部リンク強化。
+  - ページ:
+    - トップ、製品（一覧/詳細）、比較（一覧/詳細＋getStaticPaths）
+    - 代替（Alternatives）一覧/詳細、タグ一覧/詳細
+    - 要件検索（チェックボックス＋セレクト）、カテゴリ（一覧/詳細）
+    - テンプレート販売一覧、検索ページ、404、ポリシー各種
+    - パンくずUI（BreadcrumbList構造化データ）
+  - データ: `products.json` / `comparisons.json` / `comparisons.csv` / `affiliates.json` / `freshness.json` / `templates.json` / `sponsors.json`
+  - 自動化/CI:
+    - 変更検知スクリプト（HEAD/Last-Modified）＋夜間CI（`freshness.json`生成）
+    - GitHub Pages CI（Actions）＋CNAME
+    - 週次/Pushのリンク切れ検査CI（Lychee）
+  - 計測/最適化:
+    - GA4（環境変数）・クリック計測（CTA/アフィリ/スポンサー）
+    - ホームCTAの簡易ABテスト（ローカル割当/計測）
+  - 収益導線:
+    - アフィリエイト導線（`rel="nofollow noopener sponsored"`）
+    - スポンサー枠（カテゴリ合致で表示、計測属性付与）
 - 近未来拡張
   - 要件フィルタの拡充（保持期間/権限粒度/2要素詳細/SCIM範囲）。
   - Micro SaaS: 要件評価票/比較表のPDF化・保存・履歴・権限。
@@ -70,8 +84,8 @@
 - 月1回/2時間以内で実施
   - 新規SaaSのCSV/JSON追加（5–10件）。
   - 「要確認」リストの承認（ボタン反映）。
-  - テンプレ価格調整/キャンペーンON/OFF。
-- 自動: 夜間ビルド/変更検知/サイトマップ/計測/壊れリンク検査。
+  - テンプレ価格調整/キャンペーンON/OFF、スポンサー入替。
+- 自動: 夜間ビルド/変更検知/リンク検査/サイトマップ/計測。
 
 ## 13. データスキーマ（抜粋）
 - product
@@ -81,20 +95,28 @@
   - `sources[]`: `title`, `url`, `checked_at`; `last_verified`
 - comparison
   - `slug`, `title`, `productA`, `productB`, `summary`, `tags[]`, `last_updated`
+- template
+  - `slug`, `title`, `description`, `priceJPY`, `platform`, `url`, `includes[]`, `last_updated`
+- sponsor
+  - `id`, `title`, `text`, `url`, `tags[]`, `position[]`, `active`
 
 ## 14. オペレーション / 作業手順
-- 比較量産: `data/comparisons.csv` に行追加 → `npm run csv:comparisons` → push。
-- 製品追加: `data/products.json` にレコード追加（`features.dataResidency` は jp/eu/us/multiple）。
+- 比較量産: `data/comparisons.csv` を編集 → `npm run csv:comparisons` → push。
+- 製品追加: `data/products.json` にレコード追加（`features.dataResidency` は `jp|eu|us|multiple`）。
+- テンプレ更新: `data/templates.json` にレコード追加/修正。
+- スポンサー差替: `data/sponsors.json` の `active/tags/position/url` を更新。
 - デプロイ: mainへpushでGitHub Actions→Pages公開。DNSはApex Aレコード（185.199.108/109/110/111.153）。
 
 ## 15. 計測 / 最適化
-- GA4導入（`BaseLayout.astro`にID設定）、クリック計測（CTA/アフィリリンク）。
-- ABテスト：CTA文言/配置/導線（軽量に計測→良い方を採用）。
-- Search Console: ドメインプロパティ、カバレッジ/クエリ監視。
+- GA4導入: `.env` に `PUBLIC_GA_ID=G-XXXXXXXXXX` を設定（`BaseLayout.astro`が自動挿入）。
+- クリック計測: 主要リンクに `data-track` を付与済（CTA/アフィリ/スポンサー）。
+- ABテスト: ホームCTA（並び替えB）をローカル割当/イベント送出で軽量に検証。
+- Search Console: `.env` に `PUBLIC_GSC_VERIFICATION=xxxx` を設定（検証メタ自動挿入）。
 
 ## 16. 法務 / ポリシー
 - 公正な比較表現、商標/ロゴ使用の注意。
-- 免責事項・編集方針・プライバシー・アフィリエイト表記をサイトに明示（実装済）。
+- 免責事項・編集方針・プライバシー・アフィリエイト/スポンサー表記をサイトに明示（実装済）。
+- アフィリエイト/スポンサーリンクは `rel="sponsored"` を付与。
 
 ## 17. 将来の展望
 - Micro SaaSの本格提供（保存/権限/共同編集、PDF/Docx出力、テンプレ統合）。
@@ -102,8 +124,19 @@
 - Slack/Teams連携でRFP/稟議ドラフト自動生成。
 - 海外リージョン要件（GDPR/CCPA/オーストラリアPrivacy Act等）への拡張。
 
+## 18. 環境変数 / 設定
+- `.env`（コミットしない）
+  - `PUBLIC_GA_ID=G-XXXXXXXXXX`
+  - `PUBLIC_GSC_VERIFICATION=xxxxxxxxxxxxxxxx`
+- 例: `docs/env.example.md`
+
+## 19. CI / 自動化
+- Pagesデプロイ: main push / 手動 / 毎日03:00 JST
+- 夜間Freshnessチェック: HEADでLast-Modified確認→`data/freshness.json`
+- 週次/Pushのリンク切れ検査: Lychee Action（`200/30x/429` 許容、`mailto:`除外）
+
 ---
 付録: 重要URL
-- サイト: https://bochi-it-note.com
-- サイトマップ: https://bochi-it-note.com/sitemap-index.xml
-- リポジトリ: https://github.com/yuki-mori-dev/bochi-it-note
+- サイト: [https://bochi-it-note.com](https://bochi-it-note.com)
+- サイトマップ: [https://bochi-it-note.com/sitemap-index.xml](https://bochi-it-note.com/sitemap-index.xml)
+- リポジトリ: [https://github.com/yuki-mori-dev/bochi-it-note](https://github.com/yuki-mori-dev/bochi-it-note)
