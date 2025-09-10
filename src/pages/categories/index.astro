@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import products from "../../../data/products.json";
+const title = 'カテゴリ一覧｜Bochi IT Note';
+const description = 'SaaSカテゴリごとの製品一覧。DevOps、Hostingなど。';
+const categories = Array.from(new Set(products.flatMap(p => p.category || []))).sort();
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">カテゴリ一覧</h1>
+	<ul class="mt-6 grid gap-3 sm:grid-cols-2">
+		{categories.map(c => (
+			<li class="rounded-md border p-4">
+				<a class="font-semibold hover:underline" href={`/categories/${encodeURIComponent(c.toLowerCase())}`}>{c}</a>
+			</li>
+		))}
+	</ul>
+</BaseLayout>
+
+

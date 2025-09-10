@@ -18,19 +18,28 @@ const description = 'SSO/SCIM、IP制限、データ所在、監査ログなど�
 				sso: false,
 				scim: false,
 				ipAllowlist: false,
-				mfa: false
+				mfa: false,
+				dataResidency: '',
+				auditLog: ''
 			}
 		};
 
 		function matches(p, f) {
-			return Object.entries(f).every(([k, v]) => !v || Boolean(p.features?.[k]));
+			return (
+				(!f.sso || !!p.features?.sso) &&
+				(!f.scim || !!p.features?.scim) &&
+				(!f.ipAllowlist || !!p.features?.ipAllowlist) &&
+				(!f.mfa || !!p.features?.mfa) &&
+				(!f.dataResidency || String(p.features?.dataResidency || '').toLowerCase() === f.dataResidency) &&
+				(!f.auditLog || String(p.features?.auditLog || '').toLowerCase() === f.auditLog)
+			);
 		}
 
 		function render() {
 			const root = document.getElementById('app');
 			const filtered = products.filter(p => matches(p, state.filters));
 			root.innerHTML = `
-				<div class="grid gap-4 sm:grid-cols-[240px,1fr]">
+				<div class="grid gap-4 sm:grid-cols-[280px,1fr]">
 					<aside class="rounded-md border p-4">
 						<h2 class="font-semibold">要件</h2>
 						<label class="mt-2 flex items-center gap-2 text-sm">
@@ -45,6 +54,24 @@ const description = 'SSO/SCIM、IP制限、データ所在、監査ログなど�
 						<label class="mt-2 flex items-center gap-2 text-sm">
 							<input type="checkbox" data-k="mfa" /> 二要素認証
 						</label>
+						<div class="mt-3">
+							<label class="block text-xs text-gray-600">データ所在</label>
+							<select data-k="dataResidency" class="mt-1 w-full rounded border px-2 py-1 text-sm">
+								<option value="">指定なし</option>
+								<option value="jp">jp</option>
+								<option value="eu">eu</option>
+								<option value="us">us</option>
+								<option value="multiple">multiple</option>
+							</select>
+						</div>
+						<div class="mt-3">
+							<label class="block text-xs text-gray-600">監査ログ</label>
+							<select data-k="auditLog" class="mt-1 w-full rounded border px-2 py-1 text-sm">
+								<option value="">指定なし</option>
+								<option value="basic">basic</option>
+								<option value="advanced">advanced</option>
+							</select>
+						</div>
 					</aside>
 					<section>
 						<p class="text-sm text-gray-600">{filtered.length} 件</p>
@@ -59,10 +86,10 @@ const description = 'SSO/SCIM、IP制限、データ所在、監査ログなど�
 					</section>
 				</div>
 			`;
-			root.querySelectorAll('input[type="checkbox"]').forEach(el => {
+			root.querySelectorAll('input[type="checkbox"], select').forEach(el => {
 				el.checked = state.filters[el.dataset.k] ?? false;
 				el.addEventListener('change', () => {
-					state.filters[el.dataset.k] = el.checked;
+					state.filters[el.dataset.k] = el.type === 'checkbox' ? el.checked : (el.value || '');
 					render();
 				});
 			});
