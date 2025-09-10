@@ -54,6 +54,7 @@
 - Search Console: `PUBLIC_GSC_VERIFICATION=xxxxxxxxxxxxxxxx`
 - Skimlinks: `PUBLIC_SKIMLINKS_ID=12345X`（同意後のみスクリプト読込）
 - Newsletter: `PUBLIC_NEWSLETTER_EMBED=<form>...`（プロバイダ埋め込みHTML）
+- Contact: `PUBLIC_FORMSPREE_ID=xxxxxxx`（未設定時は案内表示）
 - `.env` はコミットしない。例は `docs/env.example.md`
 
 ## クリック計測 / ABテスト

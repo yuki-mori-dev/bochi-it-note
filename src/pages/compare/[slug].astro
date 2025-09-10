@@ -65,8 +65,8 @@ const hrefB = useSkim ? b.website : (affB?.url || b.website);
 		</div>
 		<h3>出典</h3>
 		<ul>
-			{a.sources.map(s => <li><a href={s.url} target="_blank" rel="noopener">{a.name}: {s.title}</a></li>)}
-			{b.sources.map(s => <li><a href={s.url} target="_blank" rel="noopener">{b.name}: {s.title}</a></li>)}
+			{a.sources.map(s => <li><a href={s.url} target="_blank" rel="nofollow noopener">{a.name}: {s.title}<span aria-hidden="true" class="ml-1">↗</span></a></li>)}
+			{b.sources.map(s => <li><a href={s.url} target="_blank" rel="nofollow noopener">{b.name}: {s.title}<span aria-hidden="true" class="ml-1">↗</span></a></li>)}
 		</ul>
 	</article>
 	<SponsorSlot context="compare" tags={[...(a.category||[]), ...(b.category||[])]} />

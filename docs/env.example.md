@@ -7,6 +7,7 @@ PUBLIC_GA_ID=G-XXXXXXXXXX
 PUBLIC_GSC_VERIFICATION=xxxxxxxxxxxxxxxx
 PUBLIC_SKIMLINKS_ID=12345X
 PUBLIC_NEWSLETTER_EMBED=<form><!-- Provider embed HTML --></form>
+PUBLIC_FORMSPREE_ID=your-formspree-id
 ```
 
 注意:

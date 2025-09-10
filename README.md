@@ -29,6 +29,7 @@ npm run dev
 - `PUBLIC_GSC_VERIFICATION=xxxxxxxxxxxxxxxx`
 - `PUBLIC_SKIMLINKS_ID=12345X`（任意・同意時のみ読込）
 - `PUBLIC_NEWSLETTER_EMBED=<form>…</form>`（任意・提供側の埋め込み）
+- `PUBLIC_FORMSPREE_ID=xxxxxxx`（任意・お問い合わせフォーム有効化）
 - サンプル: `docs/env.example.md`
 
 ## データ更新

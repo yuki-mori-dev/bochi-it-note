@@ -51,7 +51,7 @@ const f = freshness[product.slug];
 		</ul>
 		<h3>出典</h3>
 		<ul>
-			{product.sources.map(s => <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a>（確認日: {s.checked_at}）</li>)}
+			{product.sources.map(s => <li><a href={s.url} target="_blank" rel="nofollow noopener">{s.title}<span aria-hidden="true" class="ml-1">↗</span></a>（確認日: {s.checked_at}）</li>)}
 		</ul>
 		<p class="text-sm text-gray-500">最終確認日: {product.last_verified}</p>
 	</article>
