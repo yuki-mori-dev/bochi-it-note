@@ -3,4 +3,7 @@ Allow: /
 
 Sitemap: https://bochi-it-note.com/sitemap-index.xml
 
+# Admin pages should not be indexed
+Disallow: /admin/
+
 

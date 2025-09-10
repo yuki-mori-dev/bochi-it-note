@@ -46,6 +46,8 @@ const f = freshness[product.slug];
 			<li>IP制限: {product.features.ipAllowlist ? '対応' : '未対応'}</li>
 			<li>監査ログ: {product.features.auditLog}</li>
 			<li>データ所在: {product.features.dataResidency}</li>
+			<li>保持期間: {product.features.retentionDays !== null ? `${product.features.retentionDays}日` : '不明/ベンダ依存'}</li>
+			<li>権限粒度: {product.features.rolesGranularity}</li>
 		</ul>
 		<h3>出典</h3>
 		<ul>
