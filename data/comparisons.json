@@ -97,5 +97,75 @@
       "DevOps"
     ],
     "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "google-workspace-vs-microsoft-365",
+    "title": "Google Workspace vs Microsoft 365",
+    "productA": "google-workspace",
+    "productB": "microsoft-365",
+    "summary": "主要コラボ/オフィス基盤の要件適合差分を比較。",
+    "tags": [
+      "Productivity",
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "slack-vs-zoom",
+    "title": "Slack vs Zoom",
+    "productA": "slack",
+    "productB": "zoom",
+    "summary": "コミュニケーション基盤のSSO/監査/データ所在などの違い。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "asana-vs-jira",
+    "title": "Asana vs Jira",
+    "productA": "asana",
+    "productB": "jira",
+    "summary": "タスク/プロジェクト管理の運用/要件面の差分。",
+    "tags": [
+      "Productivity",
+      "DevOps"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "confluence-vs-notion",
+    "title": "Confluence vs Notion",
+    "productA": "confluence",
+    "productB": "notion",
+    "summary": "社内Wiki/ドキュメント基盤の要件適合比較。",
+    "tags": [
+      "Docs",
+      "Productivity"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "confluence-vs-coda",
+    "title": "Confluence vs Coda",
+    "productA": "confluence",
+    "productB": "coda",
+    "summary": "ドキュメント系SaaSの要件/ガバナンス差分。",
+    "tags": [
+      "Docs",
+      "Productivity"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "slack-vs-teams",
+    "title": "Slack vs Microsoft Teams",
+    "productA": "slack",
+    "productB": "teams",
+    "summary": "ビジネスチャット2大のガバナンス/要件適合を比較。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
   }
 ]

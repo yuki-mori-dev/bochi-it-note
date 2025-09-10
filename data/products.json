@@ -378,6 +378,180 @@
       { "title": "Microsoft Entra ID Documentation", "url": "https://learn.microsoft.com/entra/", "checked_at": "2025-09-10" }
     ],
     "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "google-workspace",
+    "name": "Google Workspace",
+    "vendor": "Google LLC",
+    "category": ["Communication", "Productivity"],
+    "website": "https://workspace.google.com/",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": false, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Admin security center", "url": "https://support.google.com/a/topic/9061730", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "microsoft-365",
+    "name": "Microsoft 365",
+    "vendor": "Microsoft",
+    "category": ["Communication", "Productivity"],
+    "website": "https://www.microsoft.com/microsoft-365",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": false, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Microsoft 365 compliance", "url": "https://www.microsoft.com/trust-center/compliance", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "zoom",
+    "name": "Zoom",
+    "vendor": "Zoom Video Communications, Inc.",
+    "category": ["Communication"],
+    "website": "https://zoom.us",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "basic",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "basic"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Zoom Trust Center", "url": "https://trust.zoom.us/", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "asana",
+    "name": "Asana",
+    "vendor": "Asana, Inc.",
+    "category": ["Productivity"],
+    "website": "https://asana.com",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": false,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Asana Security", "url": "https://asana.com/security", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "jira",
+    "name": "Jira Software",
+    "vendor": "Atlassian",
+    "category": ["DevOps", "Productivity"],
+    "website": "https://www.atlassian.com/software/jira",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Atlassian Trust", "url": "https://www.atlassian.com/trust", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "confluence",
+    "name": "Confluence",
+    "vendor": "Atlassian",
+    "category": ["Docs", "Productivity"],
+    "website": "https://www.atlassian.com/software/confluence",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Atlassian Trust", "url": "https://www.atlassian.com/trust", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
   }
 ]
 
