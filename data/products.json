@@ -349,6 +349,35 @@
       { "title": "Coda Security", "url": "https://coda.io/security", "checked_at": "2025-09-10" }
     ],
     "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "entra-id",
+    "name": "Microsoft Entra ID",
+    "vendor": "Microsoft",
+    "category": ["Identity", "SSO"],
+    "website": "https://www.microsoft.com/entra/",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": { "free": true, "pro": true, "enterprise": true },
+    "sources": [
+      { "title": "Microsoft Entra ID Documentation", "url": "https://learn.microsoft.com/entra/", "checked_at": "2025-09-10" }
+    ],
+    "last_verified": "2025-09-10"
   }
 ]
 

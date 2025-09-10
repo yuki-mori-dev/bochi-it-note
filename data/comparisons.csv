@@ -5,5 +5,7 @@ okta-vs-auth0,Okta vs Auth0,okta,auth0,IDaaSの代表2製品をSSO/SCIM/監査�
 slack-vs-teams,Slack vs Microsoft Teams,slack,teams,ビジネスチャット2大のガバナンス/要件適合を比較。,Communication,
 notion-vs-coda,Notion vs Coda,notion,coda,ドキュメント/データベース型2製品の要件面の差分。,Productivity,
 github-vs-bitbucket,GitHub vs Bitbucket,github,bitbucket,ソース管理の代表2製品を要件適合観点で比較。,DevOps,
+entra-vs-okta,Microsoft Entra ID vs Okta,entra-id,okta,エンタープライズID基盤の代表比較。,Identity,
+entra-vs-auth0,Microsoft Entra ID vs Auth0,entra-id,auth0,SSO/SCIM・監査/データ所在などID基盤の差分。,Identity,
 
 

@@ -64,5 +64,27 @@
       "DevOps"
     ],
     "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "entra-vs-okta",
+    "title": "Microsoft Entra ID vs Okta",
+    "productA": "entra-id",
+    "productB": "okta",
+    "summary": "エンタープライズID基盤の代表比較。",
+    "tags": [
+      "Identity"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "entra-vs-auth0",
+    "title": "Microsoft Entra ID vs Auth0",
+    "productA": "entra-id",
+    "productB": "auth0",
+    "summary": "SSO/SCIM・監査/データ所在などID基盤の差分。",
+    "tags": [
+      "Identity"
+    ],
+    "last_updated": "2025-09-10"
   }
 ]
