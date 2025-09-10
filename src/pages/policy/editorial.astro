@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const title = '編集方針｜Bochi IT Note';
+const description = '出典明記、最終確認日の表示、主観レビュー排除、要件適合の事実ベース掲載。';
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">編集方針</h1>
+	<ul class="mt-4 list-disc pl-5 text-sm text-gray-700">
+		<li>一次情報（公式ドキュメント・約款・セキュリティページ）への出典リンクを明記</li>
+		<li>各ページに最終確認日を表示し、変更検知時は「要確認」バッジを表示</li>
+		<li>主観的レビューは行わず、要件適合の事実に限定</li>
+		<li>比較では差分を中心に記載し、重複を避ける</li>
+	</ul>
+</BaseLayout>
+
+

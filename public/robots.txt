@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bochi-it-note.com/sitemap-index.xml
+
+

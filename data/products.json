@@ -1,0 +1,152 @@
+[
+  {
+    "slug": "github",
+    "name": "GitHub",
+    "vendor": "GitHub (Microsoft)",
+    "category": ["DevOps", "Source Control"],
+    "website": "https://github.com",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": false,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "us",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": {
+      "free": true,
+      "pro": true,
+      "enterprise": true
+    },
+    "sources": [
+      {
+        "title": "Enterprise authentication and access",
+        "url": "https://docs.github.com/enterprise-cloud@latest/admin/",
+        "checked_at": "2025-09-10"
+      }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "gitlab",
+    "name": "GitLab",
+    "vendor": "GitLab Inc.",
+    "category": ["DevOps", "Source Control"],
+    "website": "https://gitlab.com",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": true,
+      "mfa": true,
+      "auditLog": "advanced",
+      "retentionDays": null,
+      "dataResidency": "eu",
+      "rolesGranularity": "fine"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": {
+      "free": true,
+      "pro": true,
+      "enterprise": true
+    },
+    "sources": [
+      {
+        "title": "Authentication and user management",
+        "url": "https://docs.gitlab.com/ee/administration/",
+        "checked_at": "2025-09-10"
+      }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "vercel",
+    "name": "Vercel",
+    "vendor": "Vercel Inc.",
+    "category": ["Hosting", "Serverless"],
+    "website": "https://vercel.com",
+    "features": {
+      "sso": true,
+      "scim": true,
+      "ipAllowlist": false,
+      "mfa": true,
+      "auditLog": "basic",
+      "retentionDays": null,
+      "dataResidency": "multiple",
+      "rolesGranularity": "basic"
+    },
+    "compliance": {
+      "iso27001": true,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": {
+      "free": true,
+      "pro": true,
+      "enterprise": true
+    },
+    "sources": [
+      {
+        "title": "Security & Compliance",
+        "url": "https://vercel.com/security",
+        "checked_at": "2025-09-10"
+      }
+    ],
+    "last_verified": "2025-09-10"
+  },
+  {
+    "slug": "netlify",
+    "name": "Netlify",
+    "vendor": "Netlify Inc.",
+    "category": ["Hosting", "Serverless"],
+    "website": "https://www.netlify.com",
+    "features": {
+      "sso": true,
+      "scim": false,
+      "ipAllowlist": false,
+      "mfa": true,
+      "auditLog": "basic",
+      "retentionDays": null,
+      "dataResidency": "us",
+      "rolesGranularity": "basic"
+    },
+    "compliance": {
+      "iso27001": false,
+      "soc2": true,
+      "isms": false,
+      "privacyMark": false,
+      "electronicBookAct": "unknown"
+    },
+    "pricing": {
+      "free": true,
+      "pro": true,
+      "enterprise": true
+    },
+    "sources": [
+      {
+        "title": "Security",
+        "url": "https://www.netlify.com/security/",
+        "checked_at": "2025-09-10"
+      }
+    ],
+    "last_verified": "2025-09-10"
+  }
+]
+
+

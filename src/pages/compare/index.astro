@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import comparisons from "../../../data/comparisons.json";
+import products from "../../../data/products.json";
+const title = '比較一覧｜Bochi IT Note';
+const description = '要件適合観点のSaaS比較一覧。SSO/SCIM、IP制限、監査ログ、データ所在など。';
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">比較一覧</h1>
+	<ul class="mt-6 grid gap-4 sm:grid-cols-2">
+		{comparisons.map(c => {
+			const a = products.find(p => p.slug === c.productA);
+			const b = products.find(p => p.slug === c.productB);
+			return (
+				<li class="rounded-md border p-4">
+					<a href={`/compare/${c.slug}`} class="font-semibold text-gray-900 hover:underline">{a?.name} vs {b?.name}</a>
+					<p class="mt-1 text-sm text-gray-600">{c.summary}</p>
+				</li>
+			);
+		})}
+	</ul>
+</BaseLayout>
+
+

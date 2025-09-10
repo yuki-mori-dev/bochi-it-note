@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "github-vs-gitlab",
+    "title": "GitHub vs GitLab",
+    "productA": "github",
+    "productB": "gitlab",
+    "summary": "DevOpsの二大ホスティングを要件適合観点で比較。",
+    "tags": ["DevOps"],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "vercel-vs-netlify",
+    "title": "Vercel vs Netlify",
+    "productA": "vercel",
+    "productB": "netlify",
+    "summary": "モダンホスティング2社の運用・要件面の差分に注目。",
+    "tags": ["Hosting"],
+    "last_updated": "2025-09-10"
+  }
+]
+
+

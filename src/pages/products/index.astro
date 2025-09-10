@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import products from "../../../data/products.json";
+const title = '製品一覧｜Bochi IT Note';
+const description = '要件適合情報つきのSaaS製品一覧。SSO/SCIM、IP制限、監査ログ、データ所在など。';
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">製品一覧</h1>
+	<ul class="mt-6 grid gap-4 sm:grid-cols-2">
+		{products.map(p => (
+			<li class="rounded-md border p-4">
+				<a href={`/products/${p.slug}`} class="font-semibold text-gray-900 hover:underline">{p.name}</a>
+				<p class="mt-1 text-sm text-gray-600">SSO: {p.features.sso ? '対応' : '未対応'} / SCIM: {p.features.scim ? '対応' : '未対応'} / IP制限: {p.features.ipAllowlist ? '対応' : '未対応'}</p>
+			</li>
+		))}
+	</ul>
+</BaseLayout>
+
+

@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import products from "../../../data/products.json";
+import comparisons from "../../../data/comparisons.json";
+export function getStaticPaths() {
+  return comparisons.map(c => ({ params: { slug: c.slug } }));
+}
+const { slug } = Astro.params;
+const page = comparisons.find(c => c.slug === slug);
+if (!page) {
+  throw new Error(`Comparison not found: ${slug}`);
+}
+const a = products.find(p => p.slug === page.productA);
+const b = products.find(p => p.slug === page.productB);
+if (!a || !b) {
+  throw new Error(`Products not found for comparison: ${slug}`);
+}
+const title = `${a.name} vs ${b.name}｜要件適合比較`;
+const description = `${a.name}と${b.name}をSSO/SCIM、IP制限、監査ログ、データ所在などで比較。`;
+---
+
+<BaseLayout {title} {description}>
+	<article class="prose prose-zinc max-w-none">
+		<h1>{a.name} vs {b.name}</h1>
+		<p>{page.summary}</p>
+		<table>
+			<thead>
+				<tr>
+					<th>項目</th>
+					<th>{a.name}</th>
+					<th>{b.name}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>SSO</td><td>{a.features.sso ? '対応' : '未対応'}</td><td>{b.features.sso ? '対応' : '未対応'}</td></tr>
+				<tr><td>SCIM</td><td>{a.features.scim ? '対応' : '未対応'}</td><td>{b.features.scim ? '対応' : '未対応'}</td></tr>
+				<tr><td>IP制限</td><td>{a.features.ipAllowlist ? '対応' : '未対応'}</td><td>{b.features.ipAllowlist ? '対応' : '未対応'}</td></tr>
+				<tr><td>監査ログ</td><td>{a.features.auditLog}</td><td>{b.features.auditLog}</td></tr>
+				<tr><td>データ所在</td><td>{a.features.dataResidency}</td><td>{b.features.dataResidency}</td></tr>
+			</tbody>
+		</table>
+		<h3>出典</h3>
+		<ul>
+			{a.sources.map(s => <li><a href={s.url} target="_blank" rel="noopener">{a.name}: {s.title}</a></li>)}
+			{b.sources.map(s => <li><a href={s.url} target="_blank" rel="noopener">{b.name}: {s.title}</a></li>)}
+		</ul>
+	</article>
+	<div class="mt-8">
+		<a href="/compare/" class="text-sm underline">比較一覧に戻る</a>
+	</div>
+</BaseLayout>
+
+
