@@ -14,5 +14,13 @@ asana-vs-jira,Asana vs Jira,asana,jira,タスク/プロジェクト管理の運�
 confluence-vs-notion,Confluence vs Notion,confluence,notion,社内Wiki/ドキュメント基盤の要件適合比較。,Docs|Productivity,
 confluence-vs-coda,Confluence vs Coda,confluence,coda,ドキュメント系SaaSの要件/ガバナンス差分。,Docs|Productivity,
 slack-vs-teams,Slack vs Microsoft Teams,slack,teams,ビジネスチャット2大のガバナンス/要件適合を比較。,Communication,
+teams-vs-zoom,Microsoft Teams vs Zoom,teams,zoom,会議/通話機能とID/監査/保持の要件差分。,Communication,
+zoom-vs-google-workspace,Zoom vs Google Workspace,zoom,google-workspace,ビデオ会議の要件（SSO/保持/データ所在）を中心に比較。,Communication,
+slack-vs-google-workspace,Slack vs Google Workspace,slack,google-workspace,チャット/会議/監査ログの観点から比較。,Communication,
+asana-vs-notion,Asana vs Notion,asana,notion,タスク管理とドキュメントの要件適合を比較。,Productivity,
+jira-vs-confluence,Jira vs Confluence,jira,confluence,課題管理とナレッジ基盤のガバナンス/権限粒度の違い。,Productivity|DevOps,
+asana-vs-microsoft-365,Asana vs Microsoft 365,asana,microsoft-365,タスク管理（Planner含む）との比較（SSO/監査/保持等）。,Productivity,
+confluence-vs-microsoft-365,Confluence vs Microsoft 365,confluence,microsoft-365,社内Wiki/SharePoint観点での要件適合差分。,Docs|Productivity,
+teams-vs-google-workspace,Microsoft Teams vs Google Workspace,teams,google-workspace,チャット/会議基盤のSSO/監査/データ所在の違い。,Communication,
 
 

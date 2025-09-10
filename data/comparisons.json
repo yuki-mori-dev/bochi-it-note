@@ -167,5 +167,95 @@
       "Communication"
     ],
     "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "teams-vs-zoom",
+    "title": "Microsoft Teams vs Zoom",
+    "productA": "teams",
+    "productB": "zoom",
+    "summary": "会議/通話機能とID/監査/保持の要件差分。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "zoom-vs-google-workspace",
+    "title": "Zoom vs Google Workspace",
+    "productA": "zoom",
+    "productB": "google-workspace",
+    "summary": "ビデオ会議の要件（SSO/保持/データ所在）を中心に比較。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "slack-vs-google-workspace",
+    "title": "Slack vs Google Workspace",
+    "productA": "slack",
+    "productB": "google-workspace",
+    "summary": "チャット/会議/監査ログの観点から比較。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "asana-vs-notion",
+    "title": "Asana vs Notion",
+    "productA": "asana",
+    "productB": "notion",
+    "summary": "タスク管理とドキュメントの要件適合を比較。",
+    "tags": [
+      "Productivity"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "jira-vs-confluence",
+    "title": "Jira vs Confluence",
+    "productA": "jira",
+    "productB": "confluence",
+    "summary": "課題管理とナレッジ基盤のガバナンス/権限粒度の違い。",
+    "tags": [
+      "Productivity",
+      "DevOps"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "asana-vs-microsoft-365",
+    "title": "Asana vs Microsoft 365",
+    "productA": "asana",
+    "productB": "microsoft-365",
+    "summary": "タスク管理（Planner含む）との比較（SSO/監査/保持等）。",
+    "tags": [
+      "Productivity"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "confluence-vs-microsoft-365",
+    "title": "Confluence vs Microsoft 365",
+    "productA": "confluence",
+    "productB": "microsoft-365",
+    "summary": "社内Wiki/SharePoint観点での要件適合差分。",
+    "tags": [
+      "Docs",
+      "Productivity"
+    ],
+    "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "teams-vs-google-workspace",
+    "title": "Microsoft Teams vs Google Workspace",
+    "productA": "teams",
+    "productB": "google-workspace",
+    "summary": "チャット/会議基盤のSSO/監査/データ所在の違い。",
+    "tags": [
+      "Communication"
+    ],
+    "last_updated": "2025-09-10"
   }
 ]
