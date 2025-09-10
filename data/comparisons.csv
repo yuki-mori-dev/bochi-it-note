@@ -1,0 +1,5 @@
+slug,title,productA,productB,summary,tags,last_updated
+github-vs-gitlab,GitHub vs GitLab,github,gitlab,DevOpsの二大ホスティングを要件適合観点で比較。,DevOps,
+vercel-vs-netlify,Vercel vs Netlify,vercel,netlify,モダンホスティング2社の運用・要件面の差分に注目。,Hosting,
+
+

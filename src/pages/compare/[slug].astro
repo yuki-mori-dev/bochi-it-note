@@ -56,6 +56,19 @@ const fr = (freshness[a.slug]?.needsReview || freshness[b.slug]?.needsReview);
 			{b.sources.map(s => <li><a href={s.url} target="_blank" rel="noopener">{b.name}: {s.title}</a></li>)}
 		</ul>
 	</article>
+	<section class="mt-10">
+		<h2 class="text-lg font-semibold">関連製品</h2>
+		<ul class="mt-3 grid gap-3 sm:grid-cols-2">
+			<li class="rounded-md border p-4">
+				<a href={`/products/${a.slug}`} class="font-semibold hover:underline">{a.name}</a>
+				<p class="mt-1 text-sm text-gray-600">SSO: {a.features.sso ? '対応' : '未対応'} / SCIM: {a.features.scim ? '対応' : '未対応'}</p>
+			</li>
+			<li class="rounded-md border p-4">
+				<a href={`/products/${b.slug}`} class="font-semibold hover:underline">{b.name}</a>
+				<p class="mt-1 text-sm text-gray-600">SSO: {b.features.sso ? '対応' : '未対応'} / SCIM: {b.features.scim ? '対応' : '未対応'}</p>
+			</li>
+		</ul>
+	</section>
 	<div class="mt-8">
 		<a href="/compare/" class="text-sm underline">比較一覧に戻る</a>
 	</div>

@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check:freshness": "node ./scripts/check-freshness.mjs"
+    "check:freshness": "node ./scripts/check-freshness.mjs",
+    "csv:comparisons": "node ./scripts/csv-to-comparisons.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.5.1",
