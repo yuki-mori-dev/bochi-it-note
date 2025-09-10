@@ -1,0 +1,31 @@
+[
+  {
+    "id": "idp-seguid",
+    "title": "SecuID｜国産IDaaS",
+    "text": "SSO/SCIM・IP制限・監査ログに強い。中堅・中小企業に最適。",
+    "url": "https://example.com/secu-id?ref=bochi-it-note",
+    "tags": ["Identity", "SSO"],
+    "position": ["product", "compare"],
+    "active": true
+  },
+  {
+    "id": "backup-cloud",
+    "title": "Cloud Backup A",
+    "text": "日本DC対応・保持期間柔軟・監査ログに対応。",
+    "url": "https://example.com/backup?ref=bochi-it-note",
+    "tags": ["Backup", "Compliance"],
+    "position": ["product"],
+    "active": true
+  },
+  {
+    "id": "monitoring-x",
+    "title": "Monitoring X",
+    "text": "SaaS監視とログ連携でガバナンス強化。",
+    "url": "https://example.com/monitor?ref=bochi-it-note",
+    "tags": ["Monitoring"],
+    "position": ["compare"],
+    "active": false
+  }
+]
+
+

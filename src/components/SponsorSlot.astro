@@ -1,0 +1,20 @@
+---
+import sponsors from "../../data/sponsors.json";
+// Props: context: 'product' | 'compare'; tags?: string[]
+const { context = 'product', tags = [] } = Astro.props;
+const list = sponsors.filter(s => s.active && s.position.includes(context) && (tags.length === 0 || (s.tags||[]).some(t => tags.includes(t))));
+const pick = list[0];
+---
+
+{pick && (
+	<aside class="mt-8 rounded-md border border-amber-200 bg-amber-50 p-4 text-sm">
+		<p class="mb-1 inline-flex items-center gap-2 font-semibold text-amber-900">
+			<span>スポンサー</span>
+		</p>
+		<p class="font-medium text-gray-900">{pick.title}</p>
+		<p class="mt-1 text-gray-700">{pick.text}</p>
+		<a data-track="sponsor_click" data-type="sponsor" data-id={pick.id} href={pick.url} target="_blank" rel="nofollow noopener sponsored" class="mt-2 inline-block rounded bg-gray-900 px-3 py-2 text-white hover:bg-black">詳しくみる</a>
+	</aside>
+)}
+
+

@@ -4,6 +4,7 @@ import products from "../../../data/products.json";
 import comparisons from "../../../data/comparisons.json";
 import freshness from "../../../data/freshness.json";
 import Breadcrumb from "../../components/Breadcrumb.astro";
+import SponsorSlot from "../../components/SponsorSlot.astro";
 export function getStaticPaths() {
   return comparisons.map(c => ({ params: { slug: c.slug } }));
 }
@@ -58,6 +59,7 @@ const fr = (freshness[a.slug]?.needsReview || freshness[b.slug]?.needsReview);
 			{b.sources.map(s => <li><a href={s.url} target="_blank" rel="noopener">{b.name}: {s.title}</a></li>)}
 		</ul>
 	</article>
+	<SponsorSlot context="compare" tags={[...(a.category||[]), ...(b.category||[])]} />
 	<section class="mt-10">
 		<h2 class="text-lg font-semibold">関連製品</h2>
 		<ul class="mt-3 grid gap-3 sm:grid-cols-2">
