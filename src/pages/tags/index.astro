@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import comparisons from "../../../data/comparisons.json";
+const title = 'タグ一覧｜Bochi IT Note';
+const description = '比較ページのタグ一覧';
+const tagCounts = comparisons.reduce((acc, c) => {
+  (c.tags || []).forEach(t => { acc[t] = (acc[t]||0)+1; });
+  return acc;
+}, /** @type {Record<string, number>} */ ({}));
+const tags = Object.keys(tagCounts).sort();
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">タグ一覧</h1>
+	<ul class="mt-6 grid gap-3 sm:grid-cols-2">
+		{tags.map(t => (
+			<li class="rounded-md border p-4">
+				<a class="font-semibold hover:underline" href={`/tags/${encodeURIComponent(t)}`}>{t}</a>
+				<p class="mt-1 text-sm text-gray-600">{tagCounts[t]} 件</p>
+			</li>
+		))}
+	</ul>
+</BaseLayout>
+
+

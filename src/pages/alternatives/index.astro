@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import products from "../../../data/products.json";
+import comparisons from "../../../data/comparisons.json";
+const title = '代替（Alternatives）一覧｜Bochi IT Note';
+const description = '各製品の代替候補へのナビゲーション一覧';
+const compareCountByProduct = products.reduce((acc, p) => {
+  acc[p.slug] = comparisons.filter(c => c.productA === p.slug || c.productB === p.slug).length;
+  return acc;
+}, /** @type {Record<string, number>} */ ({}));
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">代替（Alternatives）一覧</h1>
+	<ul class="mt-6 grid gap-3 sm:grid-cols-2">
+		{products.map(p => (
+			<li class="rounded-md border p-4">
+				<a class="font-semibold hover:underline" href={`/alternatives/${p.slug}`}>{p.name} の代替</a>
+				<p class="mt-1 text-sm text-gray-600">比較ページ: {compareCountByProduct[p.slug] ?? 0} 件</p>
+			</li>
+		))}
+	</ul>
+</BaseLayout>
+
+

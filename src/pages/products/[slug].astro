@@ -59,11 +59,14 @@ const f = freshness[product.slug];
 					</li>
 				))}
 			</ul>
+			<div class="mt-4">
+				<a href={`/alternatives/${product.slug}`} class="text-sm underline">{product.name} の代替を見る</a>
+				<span class="mx-2 text-gray-400">/</span>
+				<a href="/compare/" class="text-sm underline">比較一覧に戻る</a>
+			</div>
 		</section>
 	)}
-	<div class="mt-8">
-		<a href="/compare/" class="text-sm underline">比較に戻る</a>
-	</div>
+	<div class="mt-8"></div>
 </BaseLayout>
 
 

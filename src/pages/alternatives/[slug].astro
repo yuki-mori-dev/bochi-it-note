@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import products from "../../../data/products.json";
+import comparisons from "../../../data/comparisons.json";
+export function getStaticPaths() {
+  return products.map(p => ({ params: { slug: p.slug } }));
+}
+const { slug } = Astro.params;
+const product = products.find(p => p.slug === slug);
+if (!product) throw new Error('not found');
+const alts = products.filter(p => p.slug !== product.slug);
+const title = `${product.name} の代替（Alternatives）`;
+const description = `${product.name} と比較されることが多い代替候補製品一覧。`;
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">{product.name} の代替</h1>
+	<ul class="mt-6 grid gap-3 sm:grid-cols-2">
+		{alts.map(p => (
+			<li class="rounded-md border p-4">
+				<a class="font-semibold hover:underline" href={`/products/${p.slug}`}>{p.name}</a>
+				<p class="mt-1 text-sm text-gray-600">SSO: {p.features.sso ? '対応' : '未対応'} / SCIM: {p.features.scim ? '対応' : '未対応'}</p>
+			</li>
+		))}
+	</ul>
+	<div class="mt-6">
+		<a class="text-sm underline" href="/alternatives/">代替一覧へ</a>
+	</div>
+</BaseLayout>
+
+

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import comparisons from "../../../data/comparisons.json";
+import products from "../../../data/products.json";
+export function getStaticPaths() {
+  const tags = new Set();
+  for (const c of comparisons) for (const t of (c.tags||[])) tags.add(t);
+  return Array.from(tags).map(t => ({ params: { tag: t } }));
+}
+const { tag } = Astro.params;
+const list = comparisons.filter(c => (c.tags||[]).includes(tag));
+const title = `${tag} の比較一覧`;
+const description = `${tag} タグの比較ページ一覧。`;
+---
+
+<BaseLayout {title} {description}>
+	<h1 class="text-2xl font-bold">{title}</h1>
+	<ul class="mt-6 grid gap-3 sm:grid-cols-2">
+		{list.map(c => {
+			const a = products.find(p => p.slug === c.productA);
+			const b = products.find(p => p.slug === c.productB);
+			return (
+				<li class="rounded-md border p-4">
+					<a class="font-semibold hover:underline" href={`/compare/${c.slug}`}>{a?.name} vs {b?.name}</a>
+					<p class="mt-1 text-sm text-gray-600">{c.summary}</p>
+				</li>
+			);
+		})}
+	</ul>
+	<div class="mt-6">
+		<a class="text-sm underline" href="/tags/">タグ一覧へ</a>
+	</div>
+</BaseLayout>
+
+
