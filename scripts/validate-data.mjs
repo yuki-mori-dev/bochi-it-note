@@ -42,10 +42,15 @@ for (const p of products) {
 }
 
 // comparisons validation
+const seenComparisonSlugs = new Set();
 for (const c of comparisons) {
   if (!c.slug || !c.productA || !c.productB) {
     errors.push(`comparison missing fields: ${JSON.stringify(c)}`);
   }
+  if (seenComparisonSlugs.has(c.slug)) {
+    errors.push(`comparison slug duplicated: ${c.slug}`);
+  }
+  seenComparisonSlugs.add(c.slug);
   if (!slugSet.has(c.productA)) {
     errors.push(`comparison productA not found: ${c.slug} -> ${c.productA}`);
   }

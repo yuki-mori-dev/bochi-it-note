@@ -43,22 +43,22 @@ const hrefB = useSkim ? b.website : (affB?.url || b.website);
 		<h1>{a.name} vs {b.name}</h1>
 		<p>{page.summary}</p>
 		{fr && <p class="mt-2 inline-flex items-center rounded bg-yellow-100 px-2 py-1 text-xs text-yellow-800">要確認: 出典の変更が検知されました</p>}
-		<table>
+		<div class="overflow-x-auto"><table class="min-w-full">
 			<thead>
-				<tr>
-					<th>項目</th>
-					<th>{a.name}</th>
-					<th>{b.name}</th>
+				<tr class="sticky top-0 bg-white">
+					<th class="px-2 py-1 text-left">項目</th>
+					<th class="px-2 py-1 text-left">{a.name}</th>
+					<th class="px-2 py-1 text-left">{b.name}</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>SSO</td><td>{a.features.sso ? '対応' : '未対応'}</td><td>{b.features.sso ? '対応' : '未対応'}</td></tr>
-				<tr><td>SCIM</td><td>{a.features.scim ? '対応' : '未対応'}</td><td>{b.features.scim ? '対応' : '未対応'}</td></tr>
-				<tr><td>IP制限</td><td>{a.features.ipAllowlist ? '対応' : '未対応'}</td><td>{b.features.ipAllowlist ? '対応' : '未対応'}</td></tr>
-				<tr><td>監査ログ</td><td>{a.features.auditLog}</td><td>{b.features.auditLog}</td></tr>
-				<tr><td>データ所在</td><td>{a.features.dataResidency}</td><td>{b.features.dataResidency}</td></tr>
+				<tr><td class="px-2 py-1">SSO</td><td class="px-2 py-1">{a.features.sso ? '対応' : '未対応'}</td><td class="px-2 py-1">{b.features.sso ? '対応' : '未対応'}</td></tr>
+				<tr><td class="px-2 py-1">SCIM</td><td class="px-2 py-1">{a.features.scim ? '対応' : '未対応'}</td><td class="px-2 py-1">{b.features.scim ? '対応' : '未対応'}</td></tr>
+				<tr><td class="px-2 py-1">IP制限</td><td class="px-2 py-1">{a.features.ipAllowlist ? '対応' : '未対応'}</td><td class="px-2 py-1">{b.features.ipAllowlist ? '対応' : '未対応'}</td></tr>
+				<tr><td class="px-2 py-1">監査ログ</td><td class="px-2 py-1">{a.features.auditLog}</td><td class="px-2 py-1">{b.features.auditLog}</td></tr>
+				<tr><td class="px-2 py-1">データ所在</td><td class="px-2 py-1">{a.features.dataResidency}</td><td class="px-2 py-1">{b.features.dataResidency}</td></tr>
 			</tbody>
-		</table>
+		</table></div>
 		<div class="mt-4 flex flex-wrap gap-3">
 			<a data-track="out_affiliate" data-type="product" data-slug={a.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={hrefA} target="_blank" rel="nofollow noopener sponsored">{a.name} 公式（紹介）</a>
 			<a data-track="out_affiliate" data-type="product" data-slug={b.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={hrefB} target="_blank" rel="nofollow noopener sponsored">{b.name} 公式（紹介）</a>
