@@ -24,9 +24,11 @@ npm run dev
 - `npm run build` → `dist/`
 - GitHub Actions → Pages公開（`public/CNAME` で独自ドメイン）
 
-## 環境変数（GA4/Search Console）
+## 環境変数（GA4/Search Console/Skimlinks/Newsletter）
 - `PUBLIC_GA_ID=G-XXXXXXXXXX`
 - `PUBLIC_GSC_VERIFICATION=xxxxxxxxxxxxxxxx`
+- `PUBLIC_SKIMLINKS_ID=12345X`（任意・同意時のみ読込）
+- `PUBLIC_NEWSLETTER_EMBED=<form>…</form>`（任意・提供側の埋め込み）
 - サンプル: `docs/env.example.md`
 
 ## データ更新
@@ -39,6 +41,20 @@ npm run dev
 ## 変更検知（夜間CI）
 - `scripts/check-freshness.mjs` が出典のLast-ModifiedをHEADで確認 → `data/freshness.json`
 - ページに「要確認」バッジが自動表示
+
+## 管理/運用
+- Freshnessレビュー（noindex）: `/admin/freshness` で要確認の製品を一覧
+
+## CI
+- デプロイ: `.github/workflows/deploy.yml`
+- Freshness: `.github/workflows/freshness.yml`
+- Link Check: `.github/workflows/link-check.yml`
+- データ検証: `.github/workflows/validate-data.yml`
+- サイトマップPing: `.github/workflows/sitemap-ping.yml`
+
+## Cookie/同意と計測
+- Cookie同意バナーを表示。GA4/Skimlinksは同意後のみ動的挿入。
+- アフィリエイト/スポンサーリンクは `rel="nofollow noopener sponsored"` を付与。
 
 ## ライセンス
 - © Bochi IT Note

@@ -5,7 +5,7 @@
     "description": "SaaS導入稟議でよく使う要件と評価基準を含んだ和文テンプレ（Word/Notion）",
     "priceJPY": 1980,
     "platform": "Gumroad",
-    "url": "https://gumroad.com/l/example-ringi",
+    "url": "https://gumroad.com/l/example-ringi?ref=bochi-it-note",
     "includes": ["Word", "Notion"],
     "last_updated": "2025-09-10"
   },
@@ -15,7 +15,7 @@
     "description": "要件表・評価シート付きで、SaaS選定のRFPをすぐ発行可能",
     "priceJPY": 2980,
     "platform": "BOOTH",
-    "url": "https://booth.pm/ja/items/example-rfp",
+    "url": "https://booth.pm/ja/items/example-rfp?ref=bochi-it-note",
     "includes": ["Excel", "PDF"],
     "last_updated": "2025-09-10"
   }

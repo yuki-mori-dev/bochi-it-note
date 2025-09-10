@@ -5,6 +5,7 @@
 ## 事前確認
 - [ ] ビルド成功（`npm run build`）
 - [ ] Freshness/Link Check CIがグリーン
+- [ ] Validate Data CIがグリーン（`validate-data.yml`）
 - [ ] 重要ページのメタ（タイトル/説明/OG）確認
 - [ ] サイトマップに新規ページが含まれる
 - [ ] 内部リンク/パンくずの整合
@@ -13,6 +14,7 @@
 - [ ] GA4 ID 設定（必要時）
 - [ ] Search Console 検証メタ設定（必要時）
 - [ ] CNAME/HTTPS有効化（Pages設定）
+- [ ] サイトマップPingワークフロー動作（`sitemap-ping.yml`）
 
 ## データ
 - [ ] products.json のバリデーション
@@ -23,3 +25,4 @@
 - [ ] GSCカバレッジ、手動Fetch
 - [ ] 重要クエリの順位/流入をモニタ
 - [ ] クリック計測（CTA/アフィリ/スポンサー）の変化確認
+- [ ] Cookie同意→GA4/Skimlinks読込の挙動確認

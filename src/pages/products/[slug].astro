@@ -18,6 +18,8 @@ const related = comparisons.filter(c => c.productA === product.slug || c.product
 const title = `${product.name}｜要件適合と機能`;
 const description = `${product.name}のSSO/SCIM、IP制限、監査ログ、データ所在、保持期間などの要件適合状況。`;
 const affiliate = affiliates.find(a => a.slug === product.slug) ?? affiliates.find(a => a.slug === 'default');
+const useSkim = Boolean(import.meta.env.PUBLIC_SKIMLINKS_ID);
+const affiliateHref = useSkim ? product.website : (affiliate?.url || product.website);
 const f = freshness[product.slug];
 ---
 
@@ -35,7 +37,7 @@ const f = freshness[product.slug];
 	<article class="prose prose-zinc max-w-none mt-3">
 		<h1>{product.name}</h1>
 		<p><a data-track="out_website" data-type="product" data-slug={product.slug} href={product.website} target="_blank" rel="noopener">公式サイト</a></p>
-		{affiliate && <p class="mt-2"><a data-track="out_affiliate" data-type="product" data-slug={product.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={affiliate.url} target="_blank" rel="nofollow noopener sponsored">公式サイト（紹介）へ</a></p>}
+		{affiliate && <p class="mt-2"><a data-track="out_affiliate" data-type="product" data-slug={product.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={affiliateHref} target="_blank" rel="nofollow noopener sponsored">公式サイト（紹介）へ</a></p>}
 		{f?.needsReview && <p class="mt-2 inline-flex items-center rounded bg-yellow-100 px-2 py-1 text-xs text-yellow-800">要確認: 出典の変更が検知されました</p>}
 		<h2>要件適合（抜粋）</h2>
 		<ul>

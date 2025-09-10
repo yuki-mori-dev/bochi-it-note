@@ -8,8 +8,8 @@
 - @astrojs/sitemap（自動サイトマップ）
 
 ## ディレクトリ構成（抜粋）
-- `src/layouts/BaseLayout.astro`: 共通レイアウト（SEO/OG/GA4/GSC/AB/クリック計測）
-- `src/components/`: `Header` / `Footer` / `Breadcrumb` / `SponsorSlot`
+- `src/layouts/BaseLayout.astro`: 共通レイアウト（SEO/OG/GA4/GSC/AB/クリック計測/Cookie同意/Skimlinks）
+- `src/components/`: `Header` / `Footer` / `Breadcrumb` / `SponsorSlot` / `Newsletter`
 - `src/pages/`: 各ページ（Astroのルーティング規約）
   - `products/`（一覧・動的詳細）
   - `compare/`（一覧・動的詳細＋`getStaticPaths`）
@@ -19,15 +19,19 @@
   - `templates/`（テンプレ一覧）
   - `search.astro`（横断検索）
   - `404.astro`（Not Found）
+  - `admin/freshness.astro`（Freshnessレビュー・noindex）
 - `data/`: JSON/CSV（静的生成のデータソース）
   - `products.json` / `comparisons.json` / `comparisons.csv` / `affiliates.json` / `templates.json` / `sponsors.json` / `freshness.json`
 - `scripts/`: ビルド前処理など
   - `csv-to-comparisons.mjs`: CSV→JSON 変換
   - `check-freshness.mjs`: 出典HEAD/Last-Modifiedチェック→`freshness.json`
-- `.github/workflows/`: CI
+  - `validate-data.mjs`: データ整合性チェック（CIで実行）
+- `.github/workflows/`: CI（デプロイ/夜間Freshness/リンク検査/データ検証/サイトマップPing）
   - `deploy.yml`: GitHub Pages（push/手動/毎日03:00 JST）
   - `freshness.yml`: 夜間Freshnessチェック
   - `link-check.yml`: リンク切れ検査（Lychee）
+  - `validate-data.yml`: データ検証
+  - `sitemap-ping.yml`: 検索エンジンPing
 
 ## データモデル（簡易）
 - product: 要件適合・コンプラ・出典・価格帯
@@ -48,6 +52,8 @@
 ## 環境変数
 - GA4: `PUBLIC_GA_ID=G-XXXXXXXXXX`
 - Search Console: `PUBLIC_GSC_VERIFICATION=xxxxxxxxxxxxxxxx`
+- Skimlinks: `PUBLIC_SKIMLINKS_ID=12345X`（同意後のみスクリプト読込）
+- Newsletter: `PUBLIC_NEWSLETTER_EMBED=<form>...`（プロバイダ埋め込みHTML）
 - `.env` はコミットしない。例は `docs/env.example.md`
 
 ## クリック計測 / ABテスト
@@ -56,9 +62,9 @@
   - ホームCTAのAB（A/Bで並び替え）
 
 ## 収益導線
-- アフィリエイト: `data/affiliates.json` を参照、`rel="sponsored"` で出力
+- アフィリエイト: `data/affiliates.json` を参照、`rel="sponsored"` で出力。Skimlinks ID設定時はCookie同意後にネットワークを読み込み、製品詳細の外部リンクはSkimlinks有効時は公式URLを使用（ネットワーク側置換）。
 - スポンサー枠: `SponsorSlot.astro`（カテゴリ一致で表示、クリック計測属性付与）
-- テンプレ販売: `data/templates.json` に定義→一覧表示
+- テンプレ販売: `data/templates.json` に定義→一覧表示（必要に応じ `?ref=bochi-it-note` を付与）
 
 ## コーディング規約（要点）
 - 命名は意味重視（短縮不可）

@@ -1,6 +1,6 @@
 # Bochi IT Note ビジネスプラン（v1.1）
 
-最終更新: 2025-09-10
+最終更新: 2025-09-10（Skimlinks/Newsletter/Cookie同意/管理画面/CI追記）
 
 ## 1. 背景 / 課題認識
 - 日本の中小企業・個人開発者では、IT投資の意思決定において「要件（電帳法・個情法・ISMS/プライバシー・監査ログ・SSO/SCIM・IP制限・データ所在）」の確認がボトルネック。
@@ -73,8 +73,9 @@
     - GA4（環境変数）・クリック計測（CTA/アフィリ/スポンサー）
     - ホームCTAの簡易ABテスト（ローカル割当/計測）
   - 収益導線:
-    - アフィリエイト導線（`rel="nofollow noopener sponsored"`）
+    - アフィリエイト導線（`rel="nofollow noopener sponsored"`）。Skimlinks ID設定でON（Cookie同意後に動的挿入）。
     - スポンサー枠（カテゴリ合致で表示、計測属性付与）
+    - ニュースレター導線（フッター/トップ、任意の埋め込み）
 - 近未来拡張
   - 要件フィルタの拡充（保持期間/権限粒度/2要素詳細/SCIM範囲）。
   - Micro SaaS: 要件評価票/比較表のPDF化・保存・履歴・権限。
@@ -105,7 +106,7 @@
 - 製品追加: `data/products.json` にレコード追加（`features.dataResidency` は `jp|eu|us|multiple`）。
 - テンプレ更新: `data/templates.json` にレコード追加/修正。
 - スポンサー差替: `data/sponsors.json` の `active/tags/position/url` を更新。
-- デプロイ: mainへpushでGitHub Actions→Pages公開。DNSはApex Aレコード（185.199.108/109/110/111.153）。
+- デプロイ: mainへpushでGitHub Actions→Pages公開。DNSはApex Aレコード（185.199.108/109/110/111.153）。サイトマップPing/Link Check/データ検証/夜間FreshnessはCIで自動化。
 
 ## 15. 計測 / 最適化
 - GA4導入: `.env` に `PUBLIC_GA_ID=G-XXXXXXXXXX` を設定（`BaseLayout.astro`が自動挿入）。

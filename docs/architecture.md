@@ -9,7 +9,7 @@
 
 ## 主要コンポーネント
 - レイアウト: `src/layouts/BaseLayout.astro`
-  - SEO/OG/Canonical、GA4、Search Console検証メタ、AB・クリック計測、パンくず挿入用slot。
+  - SEO/OG/Canonical、GA4、Search Console検証メタ、Cookie同意、Skimlinks動的挿入、AB・クリック計測、パンくず挿入用slot。
 - コンポーネント: `Header` / `Footer` / `Breadcrumb` / `SponsorSlot`。
 - ページ:
   - `products/`（一覧・動的詳細）
@@ -20,6 +20,7 @@
   - `templates/`（テンプレ一覧）
   - `search.astro`（横断検索）
   - `404.astro`
+  - `admin/freshness.astro`（管理用、noindex）
 
 ## データフロー
 1) CSV→JSON 変換

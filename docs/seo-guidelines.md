@@ -20,6 +20,7 @@
 - Canonical/OG/Metaは `BaseLayout.astro` で一元管理。
 - サイトマップは `@astrojs/sitemap` により自動生成。
 - 404/検索ページを設置、クローラビリティを確保。
+- Cookie同意バナー実装。分析/アフィリエイト（Skimlinks）は同意後のみ読込。
 
 ## 禁則
 - 脆弱な一次情報無しの主観表現での断定。
