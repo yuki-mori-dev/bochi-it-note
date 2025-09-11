@@ -3,14 +3,43 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CrossSellTemplates from "../components/CrossSellTemplates.astro";
 import products from "../../data/products.json";
 import comparisons from "../../data/comparisons.json";
-const title = '検索｜Bochi IT Note';
-const description = '製品・比較を横断検索';
+const title = '探す（キーワード + 要件フィルタ）｜Bochi IT Note';
+const description = '製品・比較を横断し、要件（SSO/SCIM/IP制限/監査/データ所在）でも絞り込み';
 ---
 
 <BaseLayout {title} {description}>
-	<h1 class="text-2xl font-bold">検索</h1>
-	<input id="q" class="mt-4 w-full rounded border px-3 py-2" placeholder="製品名・比較（例: GitHub, Slack vs Teams）" />
-	<div id="res" class="mt-4"></div>
+	<h1 class="text-2xl font-bold">探す</h1>
+	<div class="mt-4 grid gap-4 sm:grid-cols-[280px,1fr]">
+		<aside class="rounded-md border p-4">
+			<h2 class="font-semibold">要件</h2>
+			<label class="mt-2 flex items-center gap-2 text-sm"><input type="checkbox" data-k="sso"/> SSO</label>
+			<label class="mt-2 flex items-center gap-2 text-sm"><input type="checkbox" data-k="scim"/> SCIM</label>
+			<label class="mt-2 flex items-center gap-2 text-sm"><input type="checkbox" data-k="ipAllowlist"/> IP制限</label>
+			<label class="mt-2 flex items-center gap-2 text-sm"><input type="checkbox" data-k="mfa"/> 二要素認証</label>
+			<div class="mt-3">
+				<label class="block text-xs text-gray-600">データ所在</label>
+				<select data-k="dataResidency" class="mt-1 w-full rounded border px-2 py-1 text-sm">
+					<option value="">指定なし</option>
+					<option value="jp">jp</option>
+					<option value="eu">eu</option>
+					<option value="us">us</option>
+					<option value="multiple">multiple</option>
+				</select>
+			</div>
+			<div class="mt-3">
+				<label class="block text-xs text-gray-600">監査ログ</label>
+				<select data-k="auditLog" class="mt-1 w-full rounded border px-2 py-1 text-sm">
+					<option value="">指定なし</option>
+					<option value="basic">basic</option>
+					<option value="advanced">advanced</option>
+				</select>
+			</div>
+		</aside>
+		<section>
+			<input id="q" class="w-full rounded border px-3 py-2" placeholder="製品名・比較（例: GitHub, Slack vs Teams）" />
+			<div id="res" class="mt-4"></div>
+		</section>
+	</div>
 	<section class="mt-8">
 		<h2 class="text-lg font-semibold">更新を受け取る</h2>
 		<p class="mt-1 text-sm text-gray-600">比較や要件更新、テンプレ追加をお知らせします。</p>
@@ -21,6 +50,7 @@ const description = '製品・比較を横断検索';
 	<script>
 		const products = JSON.parse(`{JSON.stringify(products)}`);
 		const comparisons = JSON.parse(`{JSON.stringify(comparisons)}`);
+		const state = { filters: { sso:false, scim:false, ipAllowlist:false, mfa:false, dataResidency:'', auditLog:'' }, q:'' };
 		function render(list){
 			document.getElementById('res').innerHTML = `
 				<h2 class="mt-4 text-lg font-semibold">製品</h2>
@@ -33,27 +63,57 @@ const description = '製品・比較を横断検索';
 				</ul>
 			`;
 		}
-		render({products:[], comparisons:[]});
+		render({products:products, comparisons:comparisons});
 		function sendClick(name, detail){ try{ if(window.gtag){ window.gtag('event', name, { event_category:'search', ...detail }); } }catch(e){} }
-		function run(q){
-			const query = String(q||'').toLowerCase().trim();
-			if(!query){ return render({products:[], comparisons:[]}); }
-			const pr = products.filter(p => p.name.toLowerCase().includes(query) || p.slug.includes(query));
-			const cr = comparisons.filter(c => (c.title.toLowerCase().includes(query) || c.slug.includes(query)));
-			render({products:pr, comparisons:cr});
-			sendClick('search_query', { q: query, hits_products: pr.length, hits_comparisons: cr.length });
+		function matchReq(p, f){
+			return (
+				(!f.sso || !!p.features?.sso) &&
+				(!f.scim || !!p.features?.scim) &&
+				(!f.ipAllowlist || !!p.features?.ipAllowlist) &&
+				(!f.mfa || !!p.features?.mfa) &&
+				(!f.dataResidency || String(p.features?.dataResidency||'').toLowerCase()===f.dataResidency) &&
+				(!f.auditLog || String(p.features?.auditLog||'').toLowerCase()===f.auditLog)
+			);
 		}
-		document.getElementById('q').addEventListener('input', (e)=>{
-			run(e.target.value);
+		function productBySlug(slug){ return products.find(p=>p.slug===slug); }
+		function productMatches(p){ return matchReq(p, state.filters); }
+		function run(){
+			const query = String(state.q||'').toLowerCase().trim();
+			const pr0 = products.filter(p => !query || p.name.toLowerCase().includes(query) || p.slug.includes(query));
+			const cr0 = comparisons.filter(c => !query || c.title.toLowerCase().includes(query) || c.slug.includes(query));
+			const pr = pr0.filter(p => matchReq(p, state.filters));
+			const cr = cr0.filter(c => {
+				const a = productBySlug(c.productA); const b = productBySlug(c.productB);
+				return (!!a && productMatches(a)) || (!!b && productMatches(b));
+			});
+			render({products:pr, comparisons:cr});
+			sendClick('search_query', { q: query, hits_products: pr.length, hits_comparisons: cr0.length, ...state.filters });
+			const params = new URLSearchParams();
+			if(query) params.set('q', query);
+			Object.entries(state.filters).forEach(([k,v])=>{ if(v && v!==false) params.set(k,String(v)); });
+			history.replaceState(null,'', location.pathname + (params.toString()?`?${params.toString()}`:''));
+		}
+		document.getElementById('q').addEventListener('input', (e)=>{ state.q = e.target.value; run(); });
+		document.querySelectorAll('input[type="checkbox"][data-k], select[data-k]').forEach(el=>{
+			el.addEventListener('change', ()=>{
+				const k = el.getAttribute('data-k');
+				state.filters[k] = el.type==='checkbox' ? el.checked : (el.value||'');
+				run();
+			});
 		});
 		document.addEventListener('DOMContentLoaded', () => {
 			const params = new URLSearchParams(location.search);
 			const q = params.get('q');
-			if(q){
-				const input = document.getElementById('q');
-				input.value = q;
-				run(q);
-			}
+			if(q){ state.q = q; document.getElementById('q').value = q; }
+			['sso','scim','ipAllowlist','mfa'].forEach(k=>{
+				if(params.has(k)){
+					state.filters[k] = (params.get(k)==='true' || params.get(k)==='1' || params.get(k)==='on');
+					const el = document.querySelector(`input[type=checkbox][data-k="${k}"]`); if(el) el.checked = state.filters[k];
+				}
+			});
+			if(params.get('dataResidency')){ state.filters.dataResidency = params.get('dataResidency'); const el=document.querySelector('select[data-k="dataResidency"]'); if(el) el.value=state.filters.dataResidency; }
+			if(params.get('auditLog')){ state.filters.auditLog = params.get('auditLog'); const el=document.querySelector('select[data-k="auditLog"]'); if(el) el.value=state.filters.auditLog; }
+			run();
 		});
 	</script>
 </BaseLayout>
