@@ -60,7 +60,16 @@
 ## クリック計測 / ABテスト
 - `BaseLayout.astro` に軽量スクリプト
   - `data-track` 属性のクリックを収集（gtagがあれば送信、localStorageにカウント）
-  - ホームCTAのAB（A/Bで並び替え）
+  - GA4は `click` と `data-track` 名のカスタムイベントを二重発火（例: `cta_requirements_a`）
+  - ホームCTAのAB（A/Bで並び替え）。Variantは `localStorage('ab:home-cta')` と `data-variant` で確認可能
+
+### 主なイベント一覧（例）
+- `cta_requirements_a` / `cta_requirements_b`
+- `cta_compare_a` / `cta_compare_b`
+- `out_affiliate`（製品紹介リンク）
+- `out_template`（テンプレ外部購入）
+- `sponsor_click`（スポンサー枠）
+- `search_query`（検索ページでのクエリ送出: q/hits_* を含む）
 
 ## 収益導線
 - アフィリエイト: `data/affiliates.json` を参照、`rel="sponsored"` で出力。Skimlinks ID設定時はCookie同意後にネットワークを読み込み、製品詳細の外部リンクはSkimlinks有効時は公式URLを使用（ネットワーク側置換）。

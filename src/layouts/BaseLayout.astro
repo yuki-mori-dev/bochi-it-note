@@ -105,7 +105,11 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 				}
 				function sendEvent(detail){
 					try{
-						if(window.gtag){ window.gtag('event','click',{event_category:'interaction',...detail}); }
+						if(window.gtag){
+							window.gtag('event','click',{event_category:'interaction',...detail});
+							var ev = String(detail.name||'custom_click');
+							window.gtag('event', ev, { event_category:'interaction', ...detail });
+						}
 						var k='stats:click:'+(detail.name||'unknown');
 						var c=Number(localStorage.getItem(k)||'0')+1; localStorage.setItem(k,String(c));
 					}catch(e){}
