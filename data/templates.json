@@ -18,6 +18,16 @@
     "url": "https://booth.pm/ja/items/example-rfp?ref=bochi-it-note",
     "includes": ["Excel", "PDF"],
     "last_updated": "2025-09-10"
+  },
+  {
+    "slug": "security-checklist",
+    "title": "セキュリティチェックリスト（和文）",
+    "description": "SaaS導入時の最低限のセキュリティ要件を1枚でチェック可能",
+    "priceJPY": 980,
+    "platform": "Gumroad",
+    "url": "https://gumroad.com/l/security-checklist?ref=bochi-it-note",
+    "includes": ["Excel", "PDF"],
+    "last_updated": "2025-09-11"
   }
 ]
 
