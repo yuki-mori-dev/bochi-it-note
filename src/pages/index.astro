@@ -53,10 +53,12 @@ document.addEventListener('DOMContentLoaded', function(){
 			if(links.length===2){
 				if(v==='B'){
 					g.innerHTML=''; g.append(links[1],links[0]);
-					links[0].textContent='比較から始める';
-					links[1].textContent='要件で検索する';
-					links[0].setAttribute('data-track','cta_compare_b');
-					links[1].setAttribute('data-track','cta_requirements_b');
+					var a=[...g.querySelectorAll('a')];
+					// 先頭: 比較、次: 要件検索
+					a[0].textContent='比較から始める';
+					a[1].textContent='要件で検索する';
+					a[0].setAttribute('data-track','cta_compare_b');
+					a[1].setAttribute('data-track','cta_requirements_b');
 				}else{
 					links[0].setAttribute('data-track','cta_requirements_a');
 					links[1].setAttribute('data-track','cta_compare_a');
