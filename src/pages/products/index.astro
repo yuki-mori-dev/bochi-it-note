@@ -8,25 +8,30 @@ const description = '要件適合情報つきのSaaS製品一覧。SSO/SCIM、IP
 <BaseLayout {title} {description}>
 	<h1 class="text-2xl font-bold">製品一覧</h1>
 	<input id="q" class="mt-4 w-full rounded border px-3 py-2" placeholder="製品名で絞り込み" />
-	<ul id="list" class="mt-4 grid gap-4 sm:grid-cols-2"></ul>
+	<ul id="list" class="mt-4 grid gap-4 sm:grid-cols-2">
+		{products.map(p => (
+			<li class="rounded-md border p-4" data-product data-name={p.name.toLowerCase()} data-slug={p.slug}>
+				<a href={`/products/${p.slug}`} class="font-semibold text-gray-900 hover:underline">{p.name}</a>
+				<p class="mt-1 text-sm text-gray-600">SSO: {p.features.sso ? '対応' : '未対応'} / SCIM: {p.features.scim ? '対応' : '未対応'} / IP制限: {p.features.ipAllowlist ? '対応' : '未対応'}</p>
+			</li>
+		))}
+	</ul>
 
-	<script>
-		const products = JSON.parse(`{JSON.stringify(products)}`);
-		const list = document.getElementById('list');
-		function render(items){
-			list.innerHTML = items.map(p => `
-				<li class="rounded-md border p-4">
-					<a href="/products/${p.slug}" class="font-semibold text-gray-900 hover:underline">${p.name}</a>
-					<p class="mt-1 text-sm text-gray-600">SSO: ${p.features.sso ? '対応' : '未対応'} / SCIM: ${p.features.scim ? '対応' : '未対応'} / IP制限: ${p.features.ipAllowlist ? '対応' : '未対応'}</p>
-				</li>
-			`).join('');
-		}
-		render(products);
-		document.getElementById('q').addEventListener('input', (e)=>{
-			const q = String(e.target.value||'').toLowerCase().trim();
-			if(!q) return render(products);
-			render(products.filter(p => p.name.toLowerCase().includes(q) || p.slug.includes(q)));
-		});
+	<script is:inline>
+		(function(){
+			var input=document.getElementById('q');
+			var items=[].slice.call(document.querySelectorAll('[data-product]'));
+			function apply(){
+				var q=(input.value||'').toLowerCase().trim();
+				items.forEach(function(li){
+					var name=li.getAttribute('data-name')||'';
+					var slug=li.getAttribute('data-slug')||'';
+					var show = !q || name.indexOf(q)>=0 || slug.indexOf(q)>=0;
+					li.style.display = show ? '' : 'none';
+				});
+			}
+			if(input){ input.addEventListener('input', apply); }
+		})();
 	</script>
 </BaseLayout>
 

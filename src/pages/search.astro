@@ -36,7 +36,11 @@ const description = '製品・比較を横断し、要件（SSO/SCIM/IP制限/�
 			</div>
 		</aside>
 		<section>
-			<input id="q" class="w-full rounded border px-3 py-2" placeholder="製品名・比較（例: GitHub, Slack vs Teams）" />
+			<input id="q" class="w-full rounded border px-3 py-2" placeholder="製品名・比較（例: GitHub, Slack vs Teams）" oninput="window.__searchOnInput && window.__searchOnInput(event)" />
+			<div class="mt-2 flex gap-2">
+				<button type="button" id="searchBtn" class="cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-50" onclick="window.__searchRun && window.__searchRun()">検索</button>
+				<button type="button" id="clearBtn" class="cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-50" onclick="window.__searchClear && window.__searchClear()">クリア</button>
+			</div>
 			<div id="res" class="mt-4"></div>
 		</section>
 	</div>
@@ -47,12 +51,14 @@ const description = '製品・比較を横断し、要件（SSO/SCIM/IP制限/�
 	</section>
 	<CrossSellTemplates title="検索に関連するテンプレ" count={2} />
 
-	<script>
-		const products = JSON.parse(`{JSON.stringify(products)}`);
-		const comparisons = JSON.parse(`{JSON.stringify(comparisons)}`);
-		const state = { filters: { sso:false, scim:false, ipAllowlist:false, mfa:false, dataResidency:'', auditLog:'' }, q:'' };
-		function render(list){
-			document.getElementById('res').innerHTML = `
+	<script is:inline>
+		function init(){
+			try{
+			const products = {JSON.stringify(products)};
+			const comparisons = {JSON.stringify(comparisons)};
+			const state = { filters: { sso:false, scim:false, ipAllowlist:false, mfa:false, dataResidency:'', auditLog:'' }, q:'' };
+			function render(list){
+				document.getElementById('res').innerHTML = `
 				<h2 class="mt-4 text-lg font-semibold">製品</h2>
 				<ul class="mt-2 grid gap-2">
 					${list.products.map(p=>`<li><a class="underline" href="/products/${p.slug}">${p.name}</a></li>`).join('')}
@@ -62,49 +68,58 @@ const description = '製品・比較を横断し、要件（SSO/SCIM/IP制限/�
 					${list.comparisons.map(c=>`<li><a class="underline" href="/compare/${c.slug}">${c.title}</a></li>`).join('')}
 				</ul>
 			`;
-		}
-		render({products:products, comparisons:comparisons});
-		function sendClick(name, detail){ try{ if(window.gtag){ window.gtag('event', name, { event_category:'search', ...detail }); } }catch(e){} }
-		function matchReq(p, f){
-			return (
-				(!f.sso || !!p.features?.sso) &&
-				(!f.scim || !!p.features?.scim) &&
-				(!f.ipAllowlist || !!p.features?.ipAllowlist) &&
-				(!f.mfa || !!p.features?.mfa) &&
-				(!f.dataResidency || String(p.features?.dataResidency||'').toLowerCase()===f.dataResidency) &&
-				(!f.auditLog || String(p.features?.auditLog||'').toLowerCase()===f.auditLog)
-			);
-		}
-		function productBySlug(slug){ return products.find(p=>p.slug===slug); }
-		function productMatches(p){ return matchReq(p, state.filters); }
-		function run(){
-			const query = String(state.q||'').toLowerCase().trim();
-			const pr0 = products.filter(p => !query || p.name.toLowerCase().includes(query) || p.slug.includes(query));
-			const cr0 = comparisons.filter(c => !query || c.title.toLowerCase().includes(query) || c.slug.includes(query));
-			const pr = pr0.filter(p => matchReq(p, state.filters));
-			const cr = cr0.filter(c => {
-				const a = productBySlug(c.productA); const b = productBySlug(c.productB);
-				return (!!a && productMatches(a)) || (!!b && productMatches(b));
+			}
+			render({products:products, comparisons:comparisons});
+			function sendClick(name, detail){ try{ if(window.gtag){ window.gtag('event', name, { event_category:'search', ...detail }); } }catch(e){} }
+			function matchReq(p, f){
+				return (
+					(!f.sso || !!p.features?.sso) &&
+					(!f.scim || !!p.features?.scim) &&
+					(!f.ipAllowlist || !!p.features?.ipAllowlist) &&
+					(!f.mfa || !!p.features?.mfa) &&
+					(!f.dataResidency || String(p.features?.dataResidency||'').toLowerCase()===f.dataResidency) &&
+					(!f.auditLog || String(p.features?.auditLog||'').toLowerCase()===f.auditLog)
+				);
+			}
+			function productBySlug(slug){ return products.find(p=>p.slug===slug); }
+			function productMatches(p){ return matchReq(p, state.filters); }
+			function run(){
+				const query = String(state.q||'').toLowerCase().trim();
+				const pr0 = products.filter(p => !query || p.name.toLowerCase().includes(query) || p.slug.includes(query));
+				const cr0 = comparisons.filter(c => !query || c.title.toLowerCase().includes(query) || c.slug.includes(query));
+				const pr = pr0.filter(p => matchReq(p, state.filters));
+				const cr = cr0.filter(c => {
+					const a = productBySlug(c.productA); const b = productBySlug(c.productB);
+					return (!!a && productMatches(a)) || (!!b && productMatches(b));
+				});
+				render({products:pr, comparisons:cr});
+				sendClick('search_query', { q: query, hits_products: pr.length, hits_comparisons: cr.length, ...state.filters });
+				const params = new URLSearchParams();
+				if(query) params.set('q', query);
+				Object.entries(state.filters).forEach(([k,v])=>{ if(v && v!==false) params.set(k,String(v)); });
+				history.replaceState(null,'', location.pathname + (params.toString()?`?${params.toString()}`:''));
+			}
+			const inputEl = document.getElementById('q');
+			window.__searchOnInput = (e)=>{ state.q = e.target.value || ''; run(); };
+			document.querySelectorAll('input[type="checkbox"][data-k], select[data-k]').forEach(el=>{
+				el.addEventListener('change', ()=>{
+					const k = el.getAttribute('data-k');
+					state.filters[k] = el.type==='checkbox' ? el.checked : (el.value||'');
+					run();
+				});
 			});
-			render({products:pr, comparisons:cr});
-			sendClick('search_query', { q: query, hits_products: pr.length, hits_comparisons: cr0.length, ...state.filters });
-			const params = new URLSearchParams();
-			if(query) params.set('q', query);
-			Object.entries(state.filters).forEach(([k,v])=>{ if(v && v!==false) params.set(k,String(v)); });
-			history.replaceState(null,'', location.pathname + (params.toString()?`?${params.toString()}`:''));
-		}
-		document.getElementById('q').addEventListener('input', (e)=>{ state.q = e.target.value; run(); });
-		document.querySelectorAll('input[type="checkbox"][data-k], select[data-k]').forEach(el=>{
-			el.addEventListener('change', ()=>{
-				const k = el.getAttribute('data-k');
-				state.filters[k] = el.type==='checkbox' ? el.checked : (el.value||'');
+			window.__searchRun = ()=> run();
+			window.__searchClear = ()=>{
+				state.q=''; if(inputEl) inputEl.value='';
+				state.filters={ sso:false, scim:false, ipAllowlist:false, mfa:false, dataResidency:'', auditLog:'' };
+				document.querySelectorAll('input[type="checkbox"][data-k]').forEach(cb=>{ cb.checked=false; });
+				const selDR=document.querySelector('select[data-k="dataResidency"]'); if(selDR) selDR.value='';
+				const selAL=document.querySelector('select[data-k="auditLog"]'); if(selAL) selAL.value='';
 				run();
-			});
-		});
-		document.addEventListener('DOMContentLoaded', () => {
+			};
 			const params = new URLSearchParams(location.search);
 			const q = params.get('q');
-			if(q){ state.q = q; document.getElementById('q').value = q; }
+			if(q){ state.q = q; if(inputEl) inputEl.value = q; }
 			['sso','scim','ipAllowlist','mfa'].forEach(k=>{
 				if(params.has(k)){
 					state.filters[k] = (params.get(k)==='true' || params.get(k)==='1' || params.get(k)==='on');
@@ -114,7 +129,12 @@ const description = '製品・比較を横断し、要件（SSO/SCIM/IP制限/�
 			if(params.get('dataResidency')){ state.filters.dataResidency = params.get('dataResidency'); const el=document.querySelector('select[data-k="dataResidency"]'); if(el) el.value=state.filters.dataResidency; }
 			if(params.get('auditLog')){ state.filters.auditLog = params.get('auditLog'); const el=document.querySelector('select[data-k="auditLog"]'); if(el) el.value=state.filters.auditLog; }
 			run();
-		});
+			} catch(e){
+				var res=document.getElementById('res');
+				if(res){ res.innerHTML = '<div class="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">検索の初期化に失敗しました。ページを再読み込みしてください。</div>'; }
+			}
+		}
+		if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 	</script>
 </BaseLayout>
 

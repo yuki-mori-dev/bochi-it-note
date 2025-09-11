@@ -15,9 +15,9 @@
   - `compare/`（一覧・動的詳細＋`getStaticPaths`）
   - `alternatives/`（一覧・動的詳細）
   - `tags/`（一覧・動的詳細）
-  - `tools/requirements.astro`（要件検索）
+  - `search.astro`（横断検索＋要件フィルタの統合）
   - `templates/`（テンプレ一覧）
-  - `search.astro`（横断検索）
+  - `tools/requirements.astro`（統合告知＋`/search`へ遷移／noindex）
   - `404.astro`（Not Found）
   - `admin/freshness.astro`（Freshnessレビュー・noindex）
 - `data/`: JSON/CSV（静的生成のデータソース）

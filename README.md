@@ -8,6 +8,8 @@
 - デザイン/UX: `docs/design.md`
 - パフォーマンス/アクセシビリティ: `docs/performance-accessibility.md`
 - データ入力規約: `docs/data-guidelines.md`
+- 引き継ぎノート: `docs/handover.md`
+- トラブルシュート: `docs/troubleshooting.md`
 - SEO方針: `docs/seo-guidelines.md`
 - リリースチェックリスト: `docs/release-checklist.md`
 - 運用ランブック: `docs/runbook.md`
@@ -56,6 +58,10 @@ npm run dev
 ## Cookie/同意と計測
 - Cookie同意バナーを表示。GA4/Skimlinksは同意後のみ動的挿入。
 - アフィリエイト/スポンサーリンクは `rel="nofollow noopener sponsored"` を付与。
+
+## 検索/要件
+- ナビの「探す」から、キーワード検索 + 要件フィルタ（SSO/SCIM/IP制限/監査/データ所在）で横断検索できます。
+- 旧「要件検索」ページは `/search` へ統合されています。
 
 ## ライセンス
 - © Bochi IT Note
