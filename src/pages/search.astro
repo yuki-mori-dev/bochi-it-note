@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CrossSellTemplates from "../components/CrossSellTemplates.astro";
 import products from "../../data/products.json";
 import comparisons from "../../data/comparisons.json";
 const title = '検索｜Bochi IT Note';
@@ -10,6 +11,12 @@ const description = '製品・比較を横断検索';
 	<h1 class="text-2xl font-bold">検索</h1>
 	<input id="q" class="mt-4 w-full rounded border px-3 py-2" placeholder="製品名・比較（例: GitHub, Slack vs Teams）" />
 	<div id="res" class="mt-4"></div>
+	<section class="mt-8">
+		<h2 class="text-lg font-semibold">更新を受け取る</h2>
+		<p class="mt-1 text-sm text-gray-600">比較や要件更新、テンプレ追加をお知らせします。</p>
+		<div class="mt-3" set:html={import.meta.env.PUBLIC_NEWSLETTER_EMBED || ''}></div>
+	</section>
+	<CrossSellTemplates title="検索に関連するテンプレ" count={2} />
 
 	<script>
 		const products = JSON.parse(`{JSON.stringify(products)}`);
@@ -27,12 +34,14 @@ const description = '製品・比較を横断検索';
 			`;
 		}
 		render({products:[], comparisons:[]});
+		function sendClick(name, detail){ try{ if(window.gtag){ window.gtag('event', name, { event_category:'search', ...detail }); } }catch(e){} }
 		function run(q){
 			const query = String(q||'').toLowerCase().trim();
 			if(!query){ return render({products:[], comparisons:[]}); }
 			const pr = products.filter(p => p.name.toLowerCase().includes(query) || p.slug.includes(query));
 			const cr = comparisons.filter(c => (c.title.toLowerCase().includes(query) || c.slug.includes(query)));
 			render({products:pr, comparisons:cr});
+			sendClick('search_query', { q: query, hits_products: pr.length, hits_comparisons: cr.length });
 		}
 		document.getElementById('q').addEventListener('input', (e)=>{
 			run(e.target.value);
