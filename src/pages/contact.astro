@@ -9,6 +9,9 @@ const description = 'お問い合わせフォーム';
 	<p class="mt-2 text-sm text-gray-700">ご連絡は以下のフォームまたはSNS等からお願いします。</p>
 	{import.meta.env.PUBLIC_FORMSPREE_ID ? (
 		<form class="mt-4 grid gap-3" action={`https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID}`} method="POST">
+			<input type="hidden" name="source" value={Astro.url.searchParams.get('source') || ''} />
+			<input type="hidden" name="page" value={Astro.url.pathname} />
+			<input type="hidden" name="variant" value={(globalThis as any).__variant || ''} />
 			<label class="grid gap-1 text-sm">
 				<span>メールアドレス</span>
 				<input class="rounded border px-3 py-2" type="email" name="email" required />

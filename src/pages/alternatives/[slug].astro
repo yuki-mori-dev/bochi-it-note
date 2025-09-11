@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CrossSellTemplates from "../../components/CrossSellTemplates.astro";
+import SponsorSlot from "../../components/SponsorSlot.astro";
 import products from "../../../data/products.json";
 import comparisons from "../../../data/comparisons.json";
 export function getStaticPaths() {
@@ -23,9 +25,16 @@ const description = `${product.name} と比較されることが多い代替候�
 			</li>
 		))}
 	</ul>
+	<SponsorSlot context="product" tags={product.category} />
 	<div class="mt-6">
 		<a class="text-sm underline" href="/alternatives/">代替一覧へ</a>
 	</div>
+	<CrossSellTemplates title="選定に役立つテンプレ" count={2} />
+	<section class="mt-8">
+		<h2 class="text-lg font-semibold">更新を受け取る</h2>
+		<p class="mt-1 text-sm text-gray-600">比較や要件更新、テンプレ追加をお知らせします。</p>
+		<div class="mt-3" set:html={import.meta.env.PUBLIC_NEWSLETTER_EMBED || ''}></div>
+	</section>
 </BaseLayout>
 
 

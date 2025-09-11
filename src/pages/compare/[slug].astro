@@ -6,6 +6,7 @@ import comparisons from "../../../data/comparisons.json";
 import freshness from "../../../data/freshness.json";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import SponsorSlot from "../../components/SponsorSlot.astro";
+import CrossSellTemplates from "../../components/CrossSellTemplates.astro";
 export function getStaticPaths() {
   return comparisons.map(c => ({ params: { slug: c.slug } }));
 }
@@ -23,10 +24,10 @@ const title = `${a.name} vs ${b.name}｜要件適合比較`;
 const description = `${a.name}と${b.name}をSSO/SCIM、IP制限、監査ログ、データ所在などで比較。`;
 const fr = (freshness[a.slug]?.needsReview || freshness[b.slug]?.needsReview);
 const useSkim = Boolean(import.meta.env.PUBLIC_SKIMLINKS_ID);
-const affA = affiliates.find(x=>x.slug===a.slug) ?? affiliates.find(x=>x.slug==='default');
-const affB = affiliates.find(x=>x.slug===b.slug) ?? affiliates.find(x=>x.slug==='default');
-const hrefA = useSkim ? a.website : (affA?.url || a.website);
-const hrefB = useSkim ? b.website : (affB?.url || b.website);
+const affA = affiliates.find(x=>x.slug===a.slug);
+const affB = affiliates.find(x=>x.slug===b.slug);
+const hrefA = useSkim ? a.website : ((affA && affA.url) ? affA.url : a.website);
+const hrefB = useSkim ? b.website : ((affB && affB.url) ? affB.url : b.website);
 ---
 
 <BaseLayout {title} {description}>
@@ -60,9 +61,10 @@ const hrefB = useSkim ? b.website : (affB?.url || b.website);
 			</tbody>
 		</table></div>
 		<div class="mt-4 flex flex-wrap gap-3">
-			<a data-track="out_affiliate" data-type="product" data-slug={a.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={hrefA} target="_blank" rel="nofollow noopener sponsored">{a.name} 公式（紹介）</a>
-			<a data-track="out_affiliate" data-type="product" data-slug={b.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={hrefB} target="_blank" rel="nofollow noopener sponsored">{b.name} 公式（紹介）</a>
+			<a data-track="out_affiliate" data-type="product" data-slug={a.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={hrefA} target="_blank" rel="nofollow noopener sponsored">{a.name} 公式（紹介リンク）</a>
+			<a data-track="out_affiliate" data-type="product" data-slug={b.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={hrefB} target="_blank" rel="nofollow noopener sponsored">{b.name} 公式（紹介リンク）</a>
 		</div>
+		<p class="mt-1 text-xs text-gray-500">一部リンクは紹介料を得る場合があります。<a class="underline" href="/affiliate-disclosure">表示について</a></p>
 		<h3>出典</h3>
 		<ul>
 			{a.sources.map(s => <li><a href={s.url} target="_blank" rel="nofollow noopener">{a.name}: {s.title}<span aria-hidden="true" class="ml-1">↗</span></a></li>)}
@@ -70,6 +72,12 @@ const hrefB = useSkim ? b.website : (affB?.url || b.website);
 		</ul>
 	</article>
 	<SponsorSlot context="compare" tags={[...(a.category||[]), ...(b.category||[])]} />
+	<CrossSellTemplates title="比較に役立つテンプレ" count={2} />
+	<section class="mt-8">
+		<h2 class="text-lg font-semibold">更新を受け取る</h2>
+		<p class="mt-1 text-sm text-gray-600">比較や要件更新、テンプレ追加をお知らせします。</p>
+		<div class="mt-3" set:html={import.meta.env.PUBLIC_NEWSLETTER_EMBED || ''}></div>
+	</section>
 	<section class="mt-10">
 		<h2 class="text-lg font-semibold">関連製品</h2>
 		<ul class="mt-3 grid gap-3 sm:grid-cols-2">

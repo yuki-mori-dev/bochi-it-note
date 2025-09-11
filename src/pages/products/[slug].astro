@@ -6,6 +6,7 @@ import affiliates from "../../../data/affiliates.json";
 import freshness from "../../../data/freshness.json";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import SponsorSlot from "../../components/SponsorSlot.astro";
+import CrossSellTemplates from "../../components/CrossSellTemplates.astro";
 export function getStaticPaths() {
   return products.map(p => ({ params: { slug: p.slug } }));
 }
@@ -17,9 +18,11 @@ if (!product) {
 const related = comparisons.filter(c => c.productA === product.slug || c.productB === product.slug);
 const title = `${product.name}｜要件適合と機能`;
 const description = `${product.name}のSSO/SCIM、IP制限、監査ログ、データ所在、保持期間などの要件適合状況。`;
-const affiliate = affiliates.find(a => a.slug === product.slug) ?? affiliates.find(a => a.slug === 'default');
 const useSkim = Boolean(import.meta.env.PUBLIC_SKIMLINKS_ID);
-const affiliateHref = useSkim ? product.website : (affiliate?.url || product.website);
+const affiliate = affiliates.find(a => a.slug === product.slug);
+const affiliateHref = useSkim
+	? product.website
+	: (affiliate && affiliate.url ? affiliate.url : product.website);
 const f = freshness[product.slug];
 ---
 
@@ -37,7 +40,8 @@ const f = freshness[product.slug];
 	<article class="prose prose-zinc max-w-none mt-3">
 		<h1>{product.name}</h1>
 		<p><a data-track="out_website" data-type="product" data-slug={product.slug} href={product.website} target="_blank" rel="noopener">公式サイト</a></p>
-		{affiliate && <p class="mt-2"><a data-track="out_affiliate" data-type="product" data-slug={product.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={affiliateHref} target="_blank" rel="nofollow noopener sponsored">公式サイト（紹介）へ</a></p>}
+		{affiliate && <p class="mt-2"><a data-track="out_affiliate" data-type="product" data-slug={product.slug} class="inline-flex items-center gap-1 rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-black" href={affiliateHref} target="_blank" rel="nofollow noopener sponsored">公式サイト（紹介リンク）</a></p>}
+		<p class="mt-1 text-xs text-gray-500">一部リンクは紹介料を得る場合があります。<a class="underline" href="/affiliate-disclosure">表示について</a></p>
 		{f?.needsReview && <p class="mt-2 inline-flex items-center rounded bg-yellow-100 px-2 py-1 text-xs text-yellow-800">要確認: 出典の変更が検知されました</p>}
 		<h2>要件適合（抜粋）</h2>
 		<ul>
@@ -56,6 +60,12 @@ const f = freshness[product.slug];
 		<p class="text-sm text-gray-500">最終確認日: {product.last_verified}</p>
 	</article>
 	<SponsorSlot context="product" tags={product.category} />
+	<CrossSellTemplates title="この用途に役立つテンプレ" count={2} />
+	<section class="mt-8">
+		<h2 class="text-lg font-semibold">更新を受け取る</h2>
+		<p class="mt-1 text-sm text-gray-600">比較や要件更新、テンプレ追加をお知らせします。</p>
+		<div class="mt-3" set:html={import.meta.env.PUBLIC_NEWSLETTER_EMBED || ''}></div>
+	</section>
 	{related.length > 0 && (
 		<section class="mt-10">
 			<h2 class="text-lg font-semibold">この製品を含む比較</h2>

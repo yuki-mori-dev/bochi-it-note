@@ -9,7 +9,7 @@
   - Cookie同意バナーを設置し、同意後のみGA4/Skimlinksを読み込み
 
 ## リンクポリシー
-- アフィリエイト/スポンサーリンクは `rel="nofollow noopener sponsored"`
+- アフィリエイト/スポンサーリンクは `rel="nofollow noopener sponsored"` に統一
 - 外部リンクは基本別タブ（`target="_blank"`）
  - Skimlinksは同意後に動的読込し、公式URL経由でネットワーク置換を行う
 

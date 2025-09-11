@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CrossSellTemplates from "../../components/CrossSellTemplates.astro";
+import SponsorSlot from "../../components/SponsorSlot.astro";
 import comparisons from "../../../data/comparisons.json";
 import products from "../../../data/products.json";
 export function getStaticPaths() {
@@ -27,9 +29,16 @@ const description = `${tag} タグの比較ページ一覧。`;
 			);
 		})}
 	</ul>
+	<SponsorSlot context="compare" tags={[tag]} />
 	<div class="mt-6">
 		<a class="text-sm underline" href="/tags/">タグ一覧へ</a>
 	</div>
+	<CrossSellTemplates title="このタグに関連する作業のテンプレ" count={2} />
+	<section class="mt-8">
+		<h2 class="text-lg font-semibold">更新を受け取る</h2>
+		<p class="mt-1 text-sm text-gray-600">比較や要件更新、テンプレ追加をお知らせします。</p>
+		<div class="mt-3" set:html={import.meta.env.PUBLIC_NEWSLETTER_EMBED || ''}></div>
+	</section>
 </BaseLayout>
 
 

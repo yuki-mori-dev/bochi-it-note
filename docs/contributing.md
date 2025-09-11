@@ -14,4 +14,4 @@
 ## スタイル
 - 変数/関数は意味のある命名
 - 変更範囲は最小化、無関係な整形は避ける
-- `rel="sponsored"` を必ず付与（該当リンク）
+- 該当リンクには `rel="nofollow noopener sponsored"` を必ず付与

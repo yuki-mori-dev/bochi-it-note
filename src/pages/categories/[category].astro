@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CrossSellTemplates from "../../components/CrossSellTemplates.astro";
+import SponsorSlot from "../../components/SponsorSlot.astro";
 import products from "../../../data/products.json";
 export function getStaticPaths() {
   const categories = Array.from(new Set(products.flatMap(p => p.category || []))).map(c => c.toLowerCase());
@@ -21,9 +23,16 @@ const description = `${category}カテゴリの製品一覧。`;
 			</li>
 		))}
 	</ul>
+	<SponsorSlot context="product" tags={[category]} />
 	<div class="mt-6">
 		<a class="text-sm underline" href="/categories/">カテゴリ一覧へ</a>
 	</div>
+	<CrossSellTemplates title="このカテゴリに役立つテンプレ" count={2} />
+	<section class="mt-8">
+		<h2 class="text-lg font-semibold">更新を受け取る</h2>
+		<p class="mt-1 text-sm text-gray-600">比較や要件更新、テンプレ追加をお知らせします。</p>
+		<div class="mt-3" set:html={import.meta.env.PUBLIC_NEWSLETTER_EMBED || ''}></div>
+	</section>
 </BaseLayout>
 
 

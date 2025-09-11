@@ -23,7 +23,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		<article class="rounded-lg border border-gray-200 p-6">
 			<h2 class="font-semibold">テンプレート</h2>
 			<p class="mt-2 text-sm text-gray-600">稟議、RFP、セキュリティチェック、SLA/BCPなど。すぐ使える和文テンプレ。</p>
-			<a href="/templates/" class="mt-3 inline-block text-sm text-gray-900 underline">テンプレ一覧</a>
+			<ul class="mt-3 grid gap-2">
+				<li><a href="/templates/ringi-template" class="text-sm underline">稟議書テンプレート（和文・要件付き）</a></li>
+				<li><a href="/templates/rfp-template" class="text-sm underline">RFP（提案依頼書）テンプレート</a></li>
+			</ul>
+			<div class="mt-2">
+				<a href="/templates/" class="inline-block text-sm text-gray-900 underline">テンプレ一覧</a>
+			</div>
 		</article>
 		<article class="rounded-lg border border-gray-200 p-6">
 			<h2 class="font-semibold">ニュースレター</h2>
@@ -41,11 +47,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 document.addEventListener('DOMContentLoaded', function(){
 	try{
 		var v = window.__variant || 'A';
-		if(v==='B'){
-			var g=document.getElementById('cta-group');
-			if(g){
-				var a=[...g.querySelectorAll('a')];
-				if(a.length===2){ g.innerHTML=''; g.append(a[1],a[0]); }
+		var g=document.getElementById('cta-group');
+		if(g){
+			var links=[...g.querySelectorAll('a')];
+			if(links.length===2){
+				if(v==='B'){
+					g.innerHTML=''; g.append(links[1],links[0]);
+					links[0].textContent='比較から始める';
+					links[1].textContent='要件で検索する';
+					links[0].setAttribute('data-track','cta_compare_b');
+					links[1].setAttribute('data-track','cta_requirements_b');
+				}else{
+					links[0].setAttribute('data-track','cta_requirements_a');
+					links[1].setAttribute('data-track','cta_compare_a');
+				}
 			}
 		}
 	}catch(e){}
