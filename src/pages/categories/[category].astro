@@ -9,12 +9,26 @@ export function getStaticPaths() {
 }
 const { category } = Astro.params;
 const list = products.filter(p => (p.category || []).map(c => c.toLowerCase()).includes(category));
-const title = `${category}｜カテゴリ`; 
-const description = `${category}カテゴリの製品一覧。`;
+const categoryLabels = {
+  devops: '開発・運用',
+  hosting: 'ホスティング',
+  serverless: 'サーバーレス',
+  identity: 'ID基盤',
+  communication: 'コミュニケーション', // Collaboration/Communicationをまとめて表示
+  collaboration: 'コラボレーション',
+  productivity: '業務生産性',
+  docs: 'ドキュメント',
+  'source control': 'ソース管理',
+  sourcecontrol: 'ソース管理',
+  source_control: 'ソース管理'
+};
+const label = categoryLabels[String(category||'').toLowerCase()] || category;
+const title = `${label}｜カテゴリ`; 
+const description = `${label}カテゴリの製品一覧。`;
 ---
 
 <BaseLayout {title} {description}>
-	<h1 class="text-2xl font-bold">{category} の製品</h1>
+	<h1 class="text-2xl font-bold">{label} の製品</h1>
 	<ul class="mt-6 grid gap-3 sm:grid-cols-2">
 		{list.map(p => (
 			<li class="rounded-md border p-4">
@@ -23,7 +37,7 @@ const description = `${category}カテゴリの製品一覧。`;
 			</li>
 		))}
 	</ul>
-	<SponsorSlot context="product" tags={[category]} />
+	<SponsorSlot context="product" tags={[label]} />
 	<div class="mt-6">
 		<a class="text-sm underline" href="/categories/">カテゴリ一覧へ</a>
 	</div>

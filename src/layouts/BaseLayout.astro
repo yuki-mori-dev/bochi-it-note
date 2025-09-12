@@ -67,19 +67,30 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 		</script>
 		{import.meta.env.PUBLIC_GA_ID && (
 			<>
-				<script>
-					if(window.__consentGranted){
-						var s=document.createElement('script');
-						s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+"{import.meta.env.PUBLIC_GA_ID}";
-						document.head.appendChild(s);
-					}
-				</script>
+				<script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}></script>
 				<script is:inline>
-					if(window.__consentGranted){
+					(function(){
+						var GA_ID = {JSON.stringify(import.meta.env.PUBLIC_GA_ID)};
 						window.dataLayer = window.dataLayer || [];
-						function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
-						gtag('config', '{import.meta.env.PUBLIC_GA_ID}', { 'anonymize_ip': true });
-					}
+						function gtag(){dataLayer.push(arguments);} window.gtag = window.gtag || gtag;
+						gtag('consent','default',{
+							ad_storage:'denied',
+							analytics_storage:'denied',
+							functionality_storage:'denied',
+							personalization_storage:'denied',
+							security_storage:'granted'
+						});
+						gtag('js', new Date());
+						gtag('config', GA_ID, { 'anonymize_ip': true });
+						if(window.__consentGranted){
+							gtag('consent','update',{
+								ad_storage:'granted',
+								analytics_storage:'granted',
+								functionality_storage:'granted',
+								personalization_storage:'granted'
+							});
+						}
+					})();
 				</script>
 			</>
 		)}
@@ -130,6 +141,19 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 						});
 					}, {capture:true});
 					if(!window.__consentGranted){ if(window.__openConsent) window.__openConsent(); }
+					// consentが後から許可された場合、Consent Modeを更新
+					document.addEventListener('consentgranted', function(){
+						try{
+							if(window.gtag){
+								window.gtag('consent','update',{
+									ad_storage:'granted',
+									analytics_storage:'granted',
+									functionality_storage:'granted',
+									personalization_storage:'granted'
+								});
+							}
+						}catch(e){}
+					});
 				});
 			})();
 		</script>

@@ -2,8 +2,22 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import products from "../../../data/products.json";
 const title = 'カテゴリ一覧｜Bochi IT Note';
-const description = 'SaaSカテゴリごとの製品一覧。DevOps、Hostingなど。';
+const description = 'SaaSカテゴリごとの製品一覧。開発・運用、ホスティングなど。';
 const categories = Array.from(new Set(products.flatMap(p => p.category || []))).sort();
+const categoryLabels = {
+  devops: '開発・運用',
+  hosting: 'ホスティング',
+  serverless: 'サーバーレス',
+  identity: 'ID基盤',
+  communication: 'コミュニケーション', // Collaboration/Communicationをまとめて表示
+  collaboration: 'コラボレーション',
+  productivity: '業務生産性',
+  docs: 'ドキュメント',
+  'source control': 'ソース管理',
+  sourcecontrol: 'ソース管理',
+  source_control: 'ソース管理'
+};
+const labelOf = (c) => categoryLabels[String(c||'').toLowerCase()] || c;
 ---
 
 <BaseLayout {title} {description}>
@@ -11,7 +25,7 @@ const categories = Array.from(new Set(products.flatMap(p => p.category || []))).
 	<ul class="mt-6 grid gap-3 sm:grid-cols-2">
 		{categories.map(c => (
 			<li class="rounded-md border p-4">
-				<a class="font-semibold hover:underline" href={`/categories/${encodeURIComponent(c.toLowerCase())}`}>{c}</a>
+				<a class="font-semibold hover:underline" href={`/categories/${encodeURIComponent(c.toLowerCase())}`}>{labelOf(c)}</a>
 			</li>
 		))}
 	</ul>

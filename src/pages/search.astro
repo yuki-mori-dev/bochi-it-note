@@ -2,7 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CrossSellTemplates from "../components/CrossSellTemplates.astro";
 import products from "../../data/products.json";
-import comparisons from "../../data/comparisons.json";
+import comparisons from "../../data/comparisons.json"; // 最小構成: 未使用だがスクリプト互換のため維持
+const productMap = Object.fromEntries(products.map(p => [p.slug, p]));
 const title = '探す（キーワード + 要件フィルタ）｜Bochi IT Note';
 const description = '製品・比較を横断し、要件（SSO/SCIM/IP制限/監査/データ所在）でも絞り込み';
 ---
@@ -36,12 +37,33 @@ const description = '製品・比較を横断し、要件（SSO/SCIM/IP制限/�
 			</div>
 		</aside>
 		<section>
-			<input id="q" class="w-full rounded border px-3 py-2" placeholder="製品名・比較（例: GitHub, Slack vs Teams）" oninput="window.__searchOnInput && window.__searchOnInput(event)" />
+			<input id="q" class="w-full rounded border px-3 py-2" placeholder="製品名・比較（例: GitHub, Slack vs Teams）" />
+			<!-- 最小構成のため検索/クリアボタンは一時コメントアウト
 			<div class="mt-2 flex gap-2">
-				<button type="button" id="searchBtn" class="cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-50" onclick="window.__searchRun && window.__searchRun()">検索</button>
-				<button type="button" id="clearBtn" class="cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-50" onclick="window.__searchClear && window.__searchClear()">クリア</button>
+				<button type="button" id="searchBtn" class="cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-50">検索</button>
+				<button type="button" id="clearBtn" class="cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-50">クリア</button>
 			</div>
-			<div id="res" class="mt-4"></div>
+			-->
+			<div id="res" class="mt-4">
+				<h2 class="mt-4 text-lg font-semibold">製品</h2>
+				<ul id="list" class="mt-2 grid gap-4 sm:grid-cols-2">
+					{products.map(p => (
+						<li class="rounded-md border p-4" data-product data-name={p.name.toLowerCase()} data-slug={p.slug} data-sso={String(p.features.sso)} data-scim={String(p.features.scim)} data-ip={String(p.features.ipAllowlist)} data-mfa={String(p.features.mfa)} data-dr={(p.features.dataResidency||'').toLowerCase()} data-audit={(p.features.auditLog||'').toLowerCase()}>
+							<a href={`/products/${p.slug}`} class="font-semibold text-gray-900 hover:underline">{p.name}</a>
+							<p class="mt-1 text-sm text-gray-600">SSO: {p.features.sso ? '対応' : '未対応'} / SCIM: {p.features.scim ? '対応' : '未対応'} / IP制限: {p.features.ipAllowlist ? '対応' : '未対応'}</p>
+						</li>
+					))}
+				</ul>
+				<h2 class="mt-6 text-lg font-semibold">比較</h2>
+				<ul id="list-comparisons" class="mt-2 grid gap-4 sm:grid-cols-2">
+					{comparisons.map(c => (
+						<li class="rounded-md border p-4" data-comparison data-title={c.title.toLowerCase()} data-slug={c.slug} data-product-a={c.productA} data-product-b={c.productB} data-product-a-name={(products.find(p => p.slug === c.productA) || {name:''}).name.toLowerCase()} data-product-b-name={(products.find(p => p.slug === c.productB) || {name:''}).name.toLowerCase()}>
+							<a href={`/compare/${c.slug}`} class="font-semibold text-gray-900 hover:underline">{c.title}</a>
+							{c.summary && <p class="mt-1 text-sm text-gray-600">{c.summary}</p>}
+						</li>
+					))}
+				</ul>
+			</div>
 		</section>
 	</div>
 	<section class="mt-8">
@@ -52,89 +74,78 @@ const description = '製品・比較を横断し、要件（SSO/SCIM/IP制限/�
 	<CrossSellTemplates title="検索に関連するテンプレ" count={2} />
 
 	<script is:inline>
-		function init(){
+		(function(){
 			try{
-			const products = {JSON.stringify(products)};
-			const comparisons = {JSON.stringify(comparisons)};
-			const state = { filters: { sso:false, scim:false, ipAllowlist:false, mfa:false, dataResidency:'', auditLog:'' }, q:'' };
-			function render(list){
-				document.getElementById('res').innerHTML = `
-				<h2 class="mt-4 text-lg font-semibold">製品</h2>
-				<ul class="mt-2 grid gap-2">
-					${list.products.map(p=>`<li><a class="underline" href="/products/${p.slug}">${p.name}</a></li>`).join('')}
-				</ul>
-				<h2 class="mt-6 text-lg font-semibold">比較</h2>
-				<ul class="mt-2 grid gap-2">
-					${list.comparisons.map(c=>`<li><a class="underline" href="/compare/${c.slug}">${c.title}</a></li>`).join('')}
-				</ul>
-			`;
-			}
-			render({products:products, comparisons:comparisons});
-			function sendClick(name, detail){ try{ if(window.gtag){ window.gtag('event', name, { event_category:'search', ...detail }); } }catch(e){} }
-			function matchReq(p, f){
-				return (
-					(!f.sso || !!p.features?.sso) &&
-					(!f.scim || !!p.features?.scim) &&
-					(!f.ipAllowlist || !!p.features?.ipAllowlist) &&
-					(!f.mfa || !!p.features?.mfa) &&
-					(!f.dataResidency || String(p.features?.dataResidency||'').toLowerCase()===f.dataResidency) &&
-					(!f.auditLog || String(p.features?.auditLog||'').toLowerCase()===f.auditLog)
-				);
-			}
-			function productBySlug(slug){ return products.find(p=>p.slug===slug); }
-			function productMatches(p){ return matchReq(p, state.filters); }
-			function run(){
-				const query = String(state.q||'').toLowerCase().trim();
-				const pr0 = products.filter(p => !query || p.name.toLowerCase().includes(query) || p.slug.includes(query));
-				const cr0 = comparisons.filter(c => !query || c.title.toLowerCase().includes(query) || c.slug.includes(query));
-				const pr = pr0.filter(p => matchReq(p, state.filters));
-				const cr = cr0.filter(c => {
-					const a = productBySlug(c.productA); const b = productBySlug(c.productB);
-					return (!!a && productMatches(a)) || (!!b && productMatches(b));
-				});
-				render({products:pr, comparisons:cr});
-				sendClick('search_query', { q: query, hits_products: pr.length, hits_comparisons: cr.length, ...state.filters });
-				const params = new URLSearchParams();
-				if(query) params.set('q', query);
-				Object.entries(state.filters).forEach(([k,v])=>{ if(v && v!==false) params.set(k,String(v)); });
-				history.replaceState(null,'', location.pathname + (params.toString()?`?${params.toString()}`:''));
-			}
-			const inputEl = document.getElementById('q');
-			window.__searchOnInput = (e)=>{ state.q = e.target.value || ''; run(); };
-			document.querySelectorAll('input[type="checkbox"][data-k], select[data-k]').forEach(el=>{
-				el.addEventListener('change', ()=>{
-					const k = el.getAttribute('data-k');
-					state.filters[k] = el.type==='checkbox' ? el.checked : (el.value||'');
-					run();
-				});
-			});
-			window.__searchRun = ()=> run();
-			window.__searchClear = ()=>{
-				state.q=''; if(inputEl) inputEl.value='';
-				state.filters={ sso:false, scim:false, ipAllowlist:false, mfa:false, dataResidency:'', auditLog:'' };
-				document.querySelectorAll('input[type="checkbox"][data-k]').forEach(cb=>{ cb.checked=false; });
-				const selDR=document.querySelector('select[data-k="dataResidency"]'); if(selDR) selDR.value='';
-				const selAL=document.querySelector('select[data-k="auditLog"]'); if(selAL) selAL.value='';
-				run();
-			};
-			const params = new URLSearchParams(location.search);
-			const q = params.get('q');
-			if(q){ state.q = q; if(inputEl) inputEl.value = q; }
-			['sso','scim','ipAllowlist','mfa'].forEach(k=>{
-				if(params.has(k)){
-					state.filters[k] = (params.get(k)==='true' || params.get(k)==='1' || params.get(k)==='on');
-					const el = document.querySelector(`input[type=checkbox][data-k="${k}"]`); if(el) el.checked = state.filters[k];
+				var input=document.getElementById('q');
+				var productItems=[].slice.call(document.querySelectorAll('[data-product]'));
+				var comparisonItems=[].slice.call(document.querySelectorAll('[data-comparison]'));
+				function apply(){
+					var q=(input && input.value||'').toLowerCase().trim();
+					var sso = document.querySelector('input[data-k="sso"]');
+					var scim = document.querySelector('input[data-k="scim"]');
+					var ip = document.querySelector('input[data-k="ipAllowlist"]');
+					var mfa = document.querySelector('input[data-k="mfa"]');
+					var dr = document.querySelector('select[data-k="dataResidency"]');
+					var audit = document.querySelector('select[data-k="auditLog"]');
+					var f = {
+						sso: !!(sso && sso.checked),
+						scim: !!(scim && scim.checked),
+						ip: !!(ip && ip.checked),
+						mfa: !!(mfa && mfa.checked),
+						dr: (dr && dr.value)||'',
+						audit: (audit && audit.value)||''
+					};
+					for(var i=0;i<productItems.length;i++){
+						var li=productItems[i];
+						var name=(li.getAttribute('data-name')||'').toLowerCase();
+						var slug=(li.getAttribute('data-slug')||'').toLowerCase();
+						var liSso = (li.getAttribute('data-sso')||'').toLowerCase()==='true';
+						var liScim = (li.getAttribute('data-scim')||'').toLowerCase()==='true';
+						var liIp = (li.getAttribute('data-ip')||'').toLowerCase()==='true';
+						var liMfa = (li.getAttribute('data-mfa')||'').toLowerCase()==='true';
+						var liDr = (li.getAttribute('data-dr')||'').toLowerCase();
+						var liAudit = (li.getAttribute('data-audit')||'').toLowerCase();
+						var show = !q || name.indexOf(q)>=0 || slug.indexOf(q)>=0;
+						if(show){
+							if(f.sso && !liSso) show=false;
+							if(f.scim && !liScim) show=false;
+							if(f.ip && !liIp) show=false;
+							if(f.mfa && !liMfa) show=false;
+							if(f.dr && liDr!==f.dr) show=false;
+							if(f.audit && liAudit!==f.audit) show=false;
+						}
+						li.style.display = show ? '' : 'none';
+					}
+					for(var j=0;j<comparisonItems.length;j++){
+						var ci=comparisonItems[j];
+						var title=(ci.getAttribute('data-title')||'').toLowerCase();
+						var cslug=(ci.getAttribute('data-slug')||'').toLowerCase();
+						var pa=(ci.getAttribute('data-product-a')||'').toLowerCase();
+						var pb=(ci.getAttribute('data-product-b')||'').toLowerCase();
+						var pan=(ci.getAttribute('data-product-a-name')||'').toLowerCase();
+						var pbn=(ci.getAttribute('data-product-b-name')||'').toLowerCase();
+						var cshow = !q || title.indexOf(q)>=0 || cslug.indexOf(q)>=0 || pa.indexOf(q)>=0 || pb.indexOf(q)>=0 || pan.indexOf(q)>=0 || pbn.indexOf(q)>=0;
+						if(cshow){
+							// 比較は両製品が要件を満たすときのみ表示
+							var aEl = document.querySelector('[data-product][data-slug="'+pa+'"]');
+							var bEl = document.querySelector('[data-product][data-slug="'+pb+'"]');
+							if(aEl && aEl.style.display==='none') cshow=false;
+							if(bEl && bEl.style.display==='none') cshow=false;
+						}
+						ci.style.display = cshow ? '' : 'none';
+					}
 				}
-			});
-			if(params.get('dataResidency')){ state.filters.dataResidency = params.get('dataResidency'); const el=document.querySelector('select[data-k="dataResidency"]'); if(el) el.value=state.filters.dataResidency; }
-			if(params.get('auditLog')){ state.filters.auditLog = params.get('auditLog'); const el=document.querySelector('select[data-k="auditLog"]'); if(el) el.value=state.filters.auditLog; }
-			run();
-			} catch(e){
+				if(input){ input.addEventListener('input', apply); }
+				var filterNodes = document.querySelectorAll('input[type="checkbox"][data-k], select[data-k]');
+				for(var fn=0; fn<filterNodes.length; fn++){
+					filterNodes[fn].addEventListener('change', apply);
+				}
+				apply();
+			}catch(e){
 				var res=document.getElementById('res');
 				if(res){ res.innerHTML = '<div class="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">検索の初期化に失敗しました。ページを再読み込みしてください。</div>'; }
 			}
-		}
-		if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+		})();
 	</script>
 </BaseLayout>
 
