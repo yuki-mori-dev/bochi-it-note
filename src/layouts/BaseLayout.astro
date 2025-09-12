@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS選定の要件適合ナレッジとテンプレート", noindex = false } = Astro.props;
+const GA_ID = import.meta.env.PUBLIC_GA_ID || 'G-97G7HCT99G';
 ---
 
 <html lang="ja">
@@ -65,12 +66,12 @@ const { title = "Bochi IT Note", description = "日本の中小企業向けSaaS�
 				};
 			})();
 		</script>
-		{import.meta.env.PUBLIC_GA_ID && (
+		{GA_ID && (
 			<>
-				<script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}></script>
+				<script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
 				<script is:inline>
 					(function(){
-						var GA_ID = {JSON.stringify(import.meta.env.PUBLIC_GA_ID)};
+						var GA_ID = {JSON.stringify(GA_ID)};
 						window.dataLayer = window.dataLayer || [];
 						function gtag(){dataLayer.push(arguments);} window.gtag = window.gtag || gtag;
 						gtag('consent','default',{
