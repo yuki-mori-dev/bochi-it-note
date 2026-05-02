@@ -1,7 +1,7 @@
 {
   "github": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://docs.github.com/enterprise-cloud@latest/admin/",
@@ -13,43 +13,43 @@
   },
   "gitlab": {
     "needsReview": true,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://docs.gitlab.com/ee/administration/",
         "ok": true,
-        "lastModified": "Fri, 01 May 2026 18:10:00 GMT",
-        "etag": "\"7a217cd7396afd1d535c2c16ededdf91aa6517f4969ebe1f41b04f62b1093c23-br\""
+        "lastModified": "Sat, 02 May 2026 18:11:35 GMT",
+        "etag": "\"f81be69ec536bcf3d8c36efa523c6b0cb2cf49047b2461138818050dae5d5c57-br\""
       }
     ]
   },
   "vercel": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://vercel.com/security",
         "ok": true,
         "lastModified": null,
-        "etag": "\"segjrq12yffjes\""
+        "etag": "\"5dz4em2taffj8l\""
       }
     ]
   },
   "netlify": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://www.netlify.com/security/",
         "ok": true,
         "lastModified": null,
-        "etag": "\"f963c81da6ca9e43541edf0fd1a2744e-ssl-df\""
+        "etag": "\"047147fe2a28b93293415629dd1aa21a-ssl-df\""
       }
     ]
   },
   "okta": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://trust.okta.com/compliance/",
@@ -61,7 +61,7 @@
   },
   "auth0": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://auth0.com/security-compliance",
@@ -73,7 +73,7 @@
   },
   "slack": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://slack.com/security",
@@ -85,7 +85,7 @@
   },
   "teams": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://www.microsoft.com/trust-center/compliance",
@@ -97,31 +97,31 @@
   },
   "bitbucket": {
     "needsReview": true,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://www.atlassian.com/trust",
         "ok": true,
-        "lastModified": "Thu, 30 Apr 2026 21:40:11 GMT",
+        "lastModified": "Thu, 30 Apr 2026 21:31:06 GMT",
         "etag": null
       }
     ]
   },
   "notion": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://www.notion.so/help/security-and-privacy",
         "ok": true,
         "lastModified": null,
-        "etag": "W/\"11ekmswj4mldjue\""
+        "etag": "W/\"fjjn0d1hhtdjuc\""
       }
     ]
   },
   "coda": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://coda.io/security",
@@ -133,7 +133,7 @@
   },
   "entra-id": {
     "needsReview": true,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://learn.microsoft.com/entra/",
@@ -145,7 +145,7 @@
   },
   "google-workspace": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://support.google.com/a/topic/9061730",
@@ -157,7 +157,7 @@
   },
   "microsoft-365": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://www.microsoft.com/trust-center/compliance",
@@ -169,7 +169,7 @@
   },
   "zoom": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://trust.zoom.us/",
@@ -181,7 +181,7 @@
   },
   "asana": {
     "needsReview": false,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://asana.com/security",
@@ -193,24 +193,24 @@
   },
   "jira": {
     "needsReview": true,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://www.atlassian.com/trust",
         "ok": true,
-        "lastModified": "Thu, 30 Apr 2026 21:40:11 GMT",
+        "lastModified": "Thu, 30 Apr 2026 21:31:06 GMT",
         "etag": null
       }
     ]
   },
   "confluence": {
     "needsReview": true,
-    "lastChecked": "2026-05-01T18:52:39.815Z",
+    "lastChecked": "2026-05-02T18:38:35.635Z",
     "details": [
       {
         "url": "https://www.atlassian.com/trust",
         "ok": true,
-        "lastModified": "Thu, 30 Apr 2026 21:40:11 GMT",
+        "lastModified": "Thu, 30 Apr 2026 21:31:06 GMT",
         "etag": null
       }
     ]
